@@ -60,7 +60,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
             children: [
               headArea,
               SizedBox(
-                height: dynamicHeight(0.4),
+                height: dynamicHeight(0.45),
                 child: Column(
                   children: [
                     emailTextField,
@@ -135,7 +135,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset("assets/images/google.png"),
+                Image.asset("assets/images/google.png",),
                 const Text("   Google ile Giriş Yap"),
               ],
             )),
