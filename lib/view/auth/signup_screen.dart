@@ -5,6 +5,7 @@ import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/core/model/user_model.dart';
 import 'package:sadece_iylik_saglik/core/network/auth/auth.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
+import 'package:sadece_iylik_saglik/view/auth/widgets/text_field_common.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -48,10 +49,22 @@ class _SignupScreenState extends BaseState<SignupScreen> {
                 height: dynamicHeight(0.8),
                 child: Column(
                   children: [
-                    customController(nameController, "Ad"),
-                    customController(surnameController, "Soyad"),
-                    customController(emailController, "E-mail"),
-                    customController(passwordController, "Parola"),
+                    TextFieldCommon(
+                        controller: nameController,
+                        iconData: Icons.person,
+                        labelText: "Ad"),
+                    TextFieldCommon(
+                        controller: surnameController,
+                        iconData: Icons.person_outline_sharp,
+                        labelText: "Soyad"),
+                    TextFieldCommon(
+                        controller: emailController,
+                        iconData: Icons.email_outlined,
+                        labelText: "E-mail"),
+                    TextFieldCommon(
+                        controller: passwordController,
+                        iconData: Icons.fingerprint_outlined,
+                        labelText: "Parola"),
                     loginButton,
                     googleRegisterButton,
                     loginArea,
@@ -66,14 +79,22 @@ class _SignupScreenState extends BaseState<SignupScreen> {
   PreferredSizeWidget get appBar => AppBar();
 
   Widget get headArea => SizedBox(
-      height: dynamicHeight(0.2), child: Center(child: Text("Kaydol", style: themeData.textTheme.headlineLarge)));
+        height: dynamicHeight(0.2),
+        child: const Center(
+          child: Text(
+            "SIS",
+            style: TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold),
+          ),
+        ),
+      );
 
   Widget customController(TextEditingController controller, String hint) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: TextField(
         controller: controller,
-        decoration: InputDecoration(border: const OutlineInputBorder(), hintText: hint),
+        decoration:
+            InputDecoration(border: const OutlineInputBorder(), hintText: hint),
       ),
     );
   }
@@ -82,7 +103,8 @@ class _SignupScreenState extends BaseState<SignupScreen> {
       width: double.maxFinite,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: CupertinoButton.filled(onPressed: registerUser, child: const Text("Kaydol")),
+        child: CupertinoButton.filled(
+            onPressed: registerUser, child: const Text("Kaydol")),
       ));
 
   Function() get registerUser => () {
