@@ -4,8 +4,10 @@ class LoginHeaderWidget extends StatelessWidget {
   const LoginHeaderWidget({
     super.key,
     required this.size,
+    required this.showText,
   });
   final Size size;
+  final bool showText;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -20,10 +22,12 @@ class LoginHeaderWidget extends StatelessWidget {
         //   'Welcome Back',
         //   style: Theme.of(context).textTheme.headlineMedium,
         // ),
-        Text(
-          'Sadece iyilik sağlık topluluğu tarafından yapılmıştır',
-          style: Theme.of(context).textTheme.labelLarge,
-        ),
+        showText
+            ? Text(
+                'Sadece iyilik sağlık topluluğu tarafından yapılmıştır',
+                style: Theme.of(context).textTheme.labelLarge,
+              )
+            : const Text(''),
       ],
     );
   }
