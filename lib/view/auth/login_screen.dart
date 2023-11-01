@@ -38,6 +38,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
       icon: _isPasswordVisible
           ? const Icon(Icons.visibility)
           : const Icon(Icons.visibility_off),
+      color: Colors.black,
     );
   }
 
@@ -88,13 +89,15 @@ class _LoginScreenState extends BaseState<LoginScreen> {
         controller: emailController,
         iconData: Icons.email_outlined,
         labelText: 'E-mail',
+        obscureText: false,
       );
   Widget get passwordTextField => TextFieldCommon(
-      controller: passwordController,
-      iconData: Icons.fingerprint,
-      labelText: "Şifre",
-      obscureText: !_isPasswordVisible,
-      suffixIcon: _buildSuffixIcon());
+        controller: passwordController,
+        iconData: Icons.fingerprint,
+        labelText: "Şifre",
+        obscureText: !_isPasswordVisible,
+        suffixIcon: _buildSuffixIcon(),
+      );
 
   Widget get forgetButton => Container(
         width: dynamicWidth(1),
