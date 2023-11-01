@@ -7,14 +7,14 @@ class TextFieldCommon extends StatelessWidget {
     required this.iconData,
     required this.labelText,
     this.suffixIcon,
-    this.obscureText,
+    required this.obscureText,
   });
 
   final TextEditingController controller;
   final IconData iconData;
   final String labelText;
   final Widget? suffixIcon;
-  final bool? obscureText;
+  final bool obscureText;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -23,8 +23,29 @@ class TextFieldCommon extends StatelessWidget {
         controller: controller,
         decoration: InputDecoration(
             prefixIcon: Icon(iconData),
-            border: const OutlineInputBorder(),
-            labelText: labelText),
+            enabledBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Colors.deepPurple, style: BorderStyle.solid),
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            focusedBorder: const OutlineInputBorder(
+              borderSide: BorderSide(
+                  color: Colors.deepPurple,
+                  style: BorderStyle.solid,
+                  width: 2.5),
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(
+                Radius.circular(15),
+              ),
+            ),
+            labelText: labelText,
+            suffixIcon: suffixIcon),
       ),
     );
   }
