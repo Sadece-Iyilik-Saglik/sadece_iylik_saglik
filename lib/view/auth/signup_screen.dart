@@ -5,7 +5,6 @@ import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/core/model/user_model.dart';
 import 'package:sadece_iylik_saglik/core/network/auth/auth.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
-import 'package:sadece_iylik_saglik/view/auth/widgets/login_header_widget.dart';
 import 'package:sadece_iylik_saglik/view/auth/widgets/text_field_common.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -20,8 +19,6 @@ class _SignupScreenState extends BaseState<SignupScreen> {
   late TextEditingController surnameController;
   late TextEditingController emailController;
   late TextEditingController passwordController;
-  late dynamic size;
-
   @override
   void initState() {
     nameController = TextEditingController();
@@ -33,8 +30,6 @@ class _SignupScreenState extends BaseState<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    size = MediaQuery.of(context).size;
-
     return BaseView(
       viewModel: "",
       onModelReady: (model) {},
@@ -83,11 +78,13 @@ class _SignupScreenState extends BaseState<SignupScreen> {
 
   PreferredSizeWidget get appBar => AppBar();
 
-  Widget get headArea => Padding(
-        padding: const EdgeInsets.all(30.0),
-        child: LoginHeaderWidget(
-          size: size * 0.6,
-          showText: false,
+  Widget get headArea => SizedBox(
+        height: dynamicHeight(0.2),
+        child: const Center(
+          child: Text(
+            "SIS",
+            style: TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold),
+          ),
         ),
       );
 
@@ -103,15 +100,12 @@ class _SignupScreenState extends BaseState<SignupScreen> {
   }
 
   Widget get loginButton => SizedBox(
-        width: double.maxFinite,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: CupertinoButton.filled(
-            onPressed: registerUser,
-            child: const Text("Kaydol"),
-          ),
-        ),
-      );
+      width: double.maxFinite,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        child: CupertinoButton.filled(
+            onPressed: registerUser, child: const Text("Kaydol")),
+      ));
 
   Function() get registerUser => () {
         if (nameController.text.isNotEmpty &&

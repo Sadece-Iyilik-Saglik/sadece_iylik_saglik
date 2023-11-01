@@ -77,7 +77,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
       );
 
   Widget get headArea => Padding(
-        padding: const EdgeInsets.all(30.0),
+        padding: const EdgeInsets.only(top: 40.0, bottom: 50),
         child: LoginHeaderWidget(
           size: size,
           showText: true,
