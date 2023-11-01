@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/view/auth/signup_screen.dart';
 import 'package:sadece_iylik_saglik/view/auth/widgets/login_header_widget.dart';
+import 'package:sadece_iylik_saglik/view/auth/widgets/text_field_common.dart';
 import 'package:sadece_iylik_saglik/view/home/home_screen.dart';
 import '../../core/base/state/base_state.dart';
 import 'forgot_password/model/forgot_password_model_bottom_sheet.dart';
@@ -79,32 +80,22 @@ class _LoginScreenState extends BaseState<LoginScreen> {
         padding: const EdgeInsets.all(30.0),
         child: LoginHeaderWidget(
           size: size,
+          showText: true,
         ),
       );
   // Text("Giriş Yap", style: themeData.textTheme.headlineLarge)
-  Widget get emailTextField => Padding(
-        padding: const EdgeInsets.all(16),
-        child: TextField(
-          controller: emailController,
-          decoration: const InputDecoration(
-              prefixIcon: Icon(Icons.email_outlined),
-              border: OutlineInputBorder(),
-              labelText: "E-mail"),
-        ),
+  Widget get emailTextField => TextFieldCommon(
+        controller: emailController,
+        iconData: Icons.email_outlined,
+        labelText: 'E-mail',
       );
-  Widget get passwordTextField => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: TextField(
-          obscureText: !_isPasswordVisible,
-          controller: passwordController,
-          decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.fingerprint),
-            border: const OutlineInputBorder(),
-            suffixIcon: _buildSuffixIcon(),
-            labelText: "Şifre",
-          ),
-        ),
-      );
+  Widget get passwordTextField => TextFieldCommon(
+      controller: passwordController,
+      iconData: Icons.fingerprint,
+      labelText: "Şifre",
+      obscureText: !_isPasswordVisible,
+      suffixIcon: _buildSuffixIcon());
+
   Widget get forgetButton => Container(
         width: dynamicWidth(1),
         alignment: Alignment.centerRight,

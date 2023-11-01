@@ -5,6 +5,8 @@ import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/core/model/user_model.dart';
 import 'package:sadece_iylik_saglik/core/network/auth/auth.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
+import 'package:sadece_iylik_saglik/view/auth/widgets/login_header_widget.dart';
+import 'package:sadece_iylik_saglik/view/auth/widgets/text_field_common.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -18,6 +20,8 @@ class _SignupScreenState extends BaseState<SignupScreen> {
   late TextEditingController surnameController;
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  late dynamic size;
+
   @override
   void initState() {
     nameController = TextEditingController();
@@ -29,6 +33,8 @@ class _SignupScreenState extends BaseState<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+
     return BaseView(
       viewModel: "",
       onModelReady: (model) {},
@@ -48,10 +54,22 @@ class _SignupScreenState extends BaseState<SignupScreen> {
                 height: dynamicHeight(0.8),
                 child: Column(
                   children: [
-                    customController(nameController, "Ad"),
-                    customController(surnameController, "Soyad"),
-                    customController(emailController, "E-mail"),
-                    customController(passwordController, "Parola"),
+                    TextFieldCommon(
+                        controller: nameController,
+                        iconData: Icons.person,
+                        labelText: "Ad"),
+                    TextFieldCommon(
+                        controller: surnameController,
+                        iconData: Icons.person_outline_sharp,
+                        labelText: "Soyad"),
+                    TextFieldCommon(
+                        controller: emailController,
+                        iconData: Icons.email_outlined,
+                        labelText: "E-mail"),
+                    TextFieldCommon(
+                        controller: passwordController,
+                        iconData: Icons.fingerprint_outlined,
+                        labelText: "Parola"),
                     loginButton,
                     googleRegisterButton,
                     loginArea,
@@ -65,25 +83,35 @@ class _SignupScreenState extends BaseState<SignupScreen> {
 
   PreferredSizeWidget get appBar => AppBar();
 
-  Widget get headArea => SizedBox(
-      height: dynamicHeight(0.2), child: Center(child: Text("Kaydol", style: themeData.textTheme.headlineLarge)));
+  Widget get headArea => Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: LoginHeaderWidget(
+          size: size * 0.6,
+          showText: false,
+        ),
+      );
 
   Widget customController(TextEditingController controller, String hint) {
     return Padding(
       padding: const EdgeInsets.all(16),
       child: TextField(
         controller: controller,
-        decoration: InputDecoration(border: const OutlineInputBorder(), hintText: hint),
+        decoration:
+            InputDecoration(border: const OutlineInputBorder(), hintText: hint),
       ),
     );
   }
 
   Widget get loginButton => SizedBox(
-      width: double.maxFinite,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: CupertinoButton.filled(onPressed: registerUser, child: const Text("Kaydol")),
-      ));
+        width: double.maxFinite,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: CupertinoButton.filled(
+            onPressed: registerUser,
+            child: const Text("Kaydol"),
+          ),
+        ),
+      );
 
   Function() get registerUser => () {
         if (nameController.text.isNotEmpty &&
