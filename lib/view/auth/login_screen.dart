@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/view/auth/signup_screen.dart';
+import 'package:sadece_iylik_saglik/view/auth/widgets/login_header_widget.dart';
 import 'package:sadece_iylik_saglik/view/home/home_screen.dart';
 import '../../core/base/state/base_state.dart';
+import 'forgot_password/model/forgot_password_model_bottom_sheet.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -15,6 +17,8 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends BaseState<LoginScreen> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  late dynamic size;
+  bool _isPasswordVisible = false;
 
   @override
   void initState() {
@@ -23,8 +27,22 @@ class _LoginScreenState extends BaseState<LoginScreen> {
     passwordController = TextEditingController();
   }
 
+  Widget _buildSuffixIcon() {
+    return IconButton(
+      onPressed: () {
+        setState(() {
+          _isPasswordVisible = !_isPasswordVisible;
+        });
+      },
+      icon: _isPasswordVisible
+          ? const Icon(Icons.visibility)
+          : const Icon(Icons.visibility_off),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
     return BaseView(
       viewModel: "",
       onPageBuilder: (context, value) {
@@ -40,7 +58,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
             children: [
               headArea,
               SizedBox(
-                height: dynamicHeight(0.5),
+                height: dynamicHeight(0.4),
                 child: Column(
                   children: [
                     emailTextField,
@@ -57,28 +75,45 @@ class _LoginScreenState extends BaseState<LoginScreen> {
         ),
       );
 
-  Widget get headArea => SizedBox(
-      height: dynamicHeight(0.4), child: Center(child: Text("Giriş Yap", style: themeData.textTheme.headlineLarge)));
-
+  Widget get headArea => Padding(
+        padding: const EdgeInsets.all(30.0),
+        child: LoginHeaderWidget(
+          size: size,
+        ),
+      );
+  // Text("Giriş Yap", style: themeData.textTheme.headlineLarge)
   Widget get emailTextField => Padding(
         padding: const EdgeInsets.all(16),
         child: TextField(
           controller: emailController,
-          decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "E-mail"),
+          decoration: const InputDecoration(
+              prefixIcon: Icon(Icons.email_outlined),
+              border: OutlineInputBorder(),
+              labelText: "E-mail"),
         ),
       );
   Widget get passwordTextField => Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: TextField(
+          obscureText: !_isPasswordVisible,
           controller: passwordController,
-          decoration: const InputDecoration(border: OutlineInputBorder(), hintText: "Şifre"),
+          decoration: InputDecoration(
+            prefixIcon: const Icon(Icons.fingerprint),
+            border: const OutlineInputBorder(),
+            suffixIcon: _buildSuffixIcon(),
+            labelText: "Şifre",
+          ),
         ),
       );
   Widget get forgetButton => Container(
         width: dynamicWidth(1),
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 16),
-        child: TextButton(onPressed: () {}, child: const Text("Şifremi unuttum")),
+        child: TextButton(
+            onPressed: () {
+              ForgotPasswordScreen.buildShowModalBottomSheet(context);
+            },
+            child: const Text("Şifremi unuttum")),
       );
   Widget get loginButton => SizedBox(
       width: double.maxFinite,
