@@ -25,11 +25,10 @@ class _HomeScreenState extends BaseState<HomeScreen> {
   Widget get scaffoldBody => Scaffold(
         appBar: appBar,
         body: SafeArea(
-          child: Column(
-            children: [
-              carouselArea,
-              menuButtons,
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [carouselArea, menuButtons, bottomMenuButtons],
+            ),
           ),
         ),
       );
@@ -38,14 +37,16 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         backgroundColor: themeData.primaryColor.withOpacity(0.3),
         actions: [
           IconButton.filled(
-              onPressed: () {
-                Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ));
-              },
-              icon: const Icon(Icons.logout))
+            onPressed: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
+            },
+            icon: const Icon(Icons.logout),
+          )
         ],
       );
   Widget get carouselArea => SizedBox(
@@ -62,7 +63,8 @@ class _HomeScreenState extends BaseState<HomeScreen> {
   Widget get carouselCard => Padding(
         padding: const EdgeInsets.all(8.0),
         child: DecoratedBox(
-          decoration: BoxDecoration(border: Border.all(), borderRadius: BorderRadius.circular(10)),
+          decoration: BoxDecoration(
+              border: Border.all(), borderRadius: BorderRadius.circular(10)),
           child: InkWell(
             onTap: () {},
             child: Center(
@@ -75,26 +77,48 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         ),
       );
 
-  Widget get menuButtons => Wrap(
-        spacing: 10,
-        runSpacing: 10,
+  Widget get menuButtons => Column(
         children: [
-          customMenuButton("Günlük Sözler", Colors.accents[0].shade100),
-          customMenuButton("Soru", Colors.accents[1].shade100),
-          customMenuButton("Makale", Colors.accents[2].shade100),
-          customMenuButton("Departmanlar", Colors.accents[3].shade100),
-          customMenuButton("Reklam", Colors.accents[4].shade100),
-          customMenuButton("Emeği Geçenler", Colors.accents[5].shade100),
+          customMenuButton(
+              "Günlük Sözler", Colors.accents[0].shade100, 0.1, 0.85),
+          customMenuButton("Soru", Colors.accents[1].shade100, 0.1, 0.85),
+          customMenuButton("Makale", Colors.accents[2].shade100, 0.1, 0.85),
+          customMenuButton(
+              "Departmanlar", Colors.accents[3].shade100, 0.1, 0.85),
         ],
       );
-  Widget customMenuButton(String s, Color color) {
+
+  Widget get bottomMenuButtons => Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          customMenuButton("Reklam", Colors.accents[4].shade100, 0.1, 0.40),
+          customMenuButton(
+              "Emeği Geçenler", Colors.accents[5].shade700, 0.1, 0.4),
+        ],
+      );
+  Widget customMenuButton(String s, Color color, double height, double width) {
     return InkWell(
       onTap: () {},
       child: Container(
-        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(15)),
-        width: dynamicWidth(0.45),
-        height: dynamicHeight(0.1),
-        child: Center(child: Text(s)),
+        margin: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(15),
+          gradient: LinearGradient(
+            colors: [
+              Colors.blue,
+              color,
+            ],
+          ),
+        ),
+        width: dynamicWidth(width),
+        height: dynamicHeight(height),
+        child: Center(
+          child: Text(
+            s,
+            style: const TextStyle(color: Colors.white),
+          ),
+        ),
       ),
     );
   }
