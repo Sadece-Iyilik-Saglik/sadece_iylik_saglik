@@ -27,7 +27,11 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         body: SafeArea(
           child: SingleChildScrollView(
             child: Column(
-              children: [carouselArea, menuButtons, bottomMenuButtons],
+              children: [
+                carouselArea,
+                menuButtons,
+                bottomMenuButtons,
+              ],
             ),
           ),
         ),
@@ -40,73 +44,66 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         ),
         backgroundColor: themeData.primaryColor,
         actions: [
-          PopupMenuButton<int>(
-            icon: Icon(Icons.more_vert,
-                color: Colors.white), // Daha fazla seçenekleri gösteren ikon
-            color: Color(0xFF7D818C), // Buton rengi
-            itemBuilder: (BuildContext context) {
-              return <PopupMenuEntry<int>>[
-                const PopupMenuItem<int>(
-                  value: 1,
-                  child: Text(
-                    'SSS',
-                    style:
-                        TextStyle(color: Colors.white), // Seçenek metin rengi
-                  ),
-                ),
-                const PopupMenuItem<int>(
-                  value: 2,
-                  child: Text(
-                    'İletişim',
-                    style:
-                        TextStyle(color: Colors.white), // Seçenek metin rengi
-                  ),
-                ),
-                const PopupMenuItem<int>(
-                  value: 3,
-                  child: Text(
-                    'Çıkış yap',
-                    style:
-                        TextStyle(color: Colors.white), // Seçenek metin rengi
-                  ),
-                ),
-              ];
-            },
-            onSelected: (int value) {
-              // Seçilen seçeneğe göre işlem yapabilirsiniz.
-              switch (value) {
-                case 1:
-                  // Seçenek 1 seçildiğinde yapılacak işlem
-                  break;
-                case 2:
-                  // Seçenek 2 seçildiğinde yapılacak işlem
-                  break;
-                case 3:
-                  // Seçenek 3 seçildiğinde yapılacak işlem
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
-                    ),
-                  );
-                  break;
-              }
-            },
-          )
-
-          // IconButton.filled(
-          //   style: ButtonStyle(),
-          //   onPressed: () {
-          //     Navigator.pushReplacement(
-          //       context,
-          //       MaterialPageRoute(
-          //         builder: (context) => const LoginScreen(),
-          //       ),
-          //     );
-          //   },
-          //   icon: const Icon(Icons.logout),
-          // )
+          popUpMenu,
         ],
+      );
+
+  Widget get popUpMenu => PopupMenuButton<int>(
+        offset: const Offset(-10, 40),
+        icon: const Icon(
+          Icons.more_vert,
+          color: Colors.white,
+        ),
+        elevation: 20,
+        shape: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(5),
+          borderSide: const BorderSide(
+            style: BorderStyle.solid,
+            color: Color(0xFF273C66),
+          ),
+        ),
+        color: const Color(0xFFED8C42),
+        itemBuilder: (BuildContext context) {
+          return <PopupMenuEntry<int>>[
+            const PopupMenuItem<int>(
+              value: 1,
+              child: Text(
+                'SSS',
+                style: TextStyle(color: Colors.white), // Seçenek metin rengi
+              ),
+            ),
+            const PopupMenuItem<int>(
+              value: 2,
+              child: Text(
+                'İletişim',
+                style: TextStyle(color: Colors.white), // Seçenek metin rengi
+              ),
+            ),
+            const PopupMenuItem<int>(
+              value: 3,
+              child: Text(
+                'Çıkış yap',
+                style: TextStyle(color: Colors.white), // Seçenek metin rengi
+              ),
+            ),
+          ];
+        },
+        onSelected: (int value) {
+          switch (value) {
+            case 1:
+              break;
+            case 2:
+              break;
+            case 3:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
+              break;
+          }
+        },
       );
   Widget get carouselArea => SizedBox(
         width: double.maxFinite,
@@ -124,16 +121,22 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         padding: const EdgeInsets.all(8.0),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            border: Border.all(),
             borderRadius: BorderRadius.circular(10),
             boxShadow: [],
           ),
           child: InkWell(
             onTap: () {},
-            child: Center(
-              child: Text(
-                "Sadece İyilik Sağlık",
-                style: themeData.textTheme.headlineLarge,
+            child: Container(
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: const Color(0xFFED8C42),
+                  width: 3,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Image.network(
+                "https://webis.akdeniz.edu.tr/uploads/1/slider/8229546c-01df-484e-9261-9e0559e5b595.png",
+                fit: BoxFit.cover,
               ),
             ),
           ),
@@ -143,25 +146,62 @@ class _HomeScreenState extends BaseState<HomeScreen> {
   Widget get menuButtons => Column(
         children: [
           customMenuButton(
-              "Günlük Sözler", Colors.accents[0].shade100, 0.1, 0.85),
-          customMenuButton("Soru", Colors.accents[1].shade100, 0.1, 0.85),
-          customMenuButton("Makale", Colors.accents[2].shade100, 0.1, 0.85),
+            "Günlük Sözler",
+            Colors.accents[0].shade100,
+            0.1,
+            0.85,
+            () {
+              showGunlukSozlerDialog(context);
+            },
+          ),
           customMenuButton(
-              "Departmanlar", Colors.accents[3].shade100, 0.1, 0.85),
+            "Soru",
+            Colors.accents[1].shade200,
+            0.1,
+            0.85,
+            () => showQuestionsPage(),
+          ),
+          customMenuButton(
+            "Makale",
+            Colors.accents[2].shade200,
+            0.1,
+            0.85,
+            () => showMakalePage(),
+          ),
+          customMenuButton(
+            "Departmanlar",
+            Colors.accents[3].shade100,
+            0.1,
+            0.85,
+            () => showDepartmentsPage(),
+          ),
         ],
       );
-
   Widget get bottomMenuButtons => Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          customMenuButton("Reklam", Colors.accents[4].shade100, 0.1, 0.40),
           customMenuButton(
-              "Emeği Geçenler", Colors.accents[5].shade700, 0.1, 0.4),
+            "Reklam",
+            Colors.accents[4].shade200,
+            0.1,
+            0.40,
+            () => showReklamPage(),
+          ),
+          customMenuButton(
+            "Emeği Geçenler",
+            Colors.accents[5].shade200,
+            0.1,
+            0.4,
+            showEmegiGecenler,
+          ),
         ],
       );
-  Widget customMenuButton(String s, Color color, double height, double width) {
+  Widget customMenuButton(String s, Color color, double height, double width,
+      Function() onTapFunction) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        onTapFunction();
+      },
       child: Container(
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
@@ -169,7 +209,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
           borderRadius: BorderRadius.circular(15),
           gradient: LinearGradient(
             colors: [
-              Colors.blue,
+              const Color(0xFF273C66),
               color,
             ],
           ),
@@ -185,4 +225,88 @@ class _HomeScreenState extends BaseState<HomeScreen> {
       ),
     );
   }
+
+  void showGunlukSozlerDialog(BuildContext context) {
+    showGeneralDialog(
+      barrierLabel: "Label",
+      barrierDismissible: true,
+      barrierColor: Colors.black.withOpacity(0.6),
+      transitionDuration: const Duration(milliseconds: 200),
+      context: context,
+      pageBuilder: (context, animation1, animation2) {
+        final curvedValue = Curves.easeInOut.transform(animation1.value);
+        return Center(
+          child: SizedBox(
+            width: dynamicWidth(0.9),
+            child: Material(
+              color: Colors.transparent,
+              child: Transform.scale(
+                scale: 1 + (0.2 * curvedValue),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.all(20),
+                        decoration: const BoxDecoration(
+                          color: Color(0xFF273C66),
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(15),
+                            topRight: Radius.circular(15),
+                          ),
+                        ),
+                        child: const Center(
+                          child: Text(
+                            "Günlük Sözler",
+                            style: TextStyle(
+                              fontSize: 24,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          children: <Widget>[
+                            const Text(
+                              "Burada günlük sözlerin içeriği veya diğer bilgiler yer alabilir.",
+                              style: TextStyle(fontSize: 17),
+                            ),
+                            const SizedBox(height: 20),
+                            ElevatedButton(
+                              style: const ButtonStyle(),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("Kapat"),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void showQuestionsPage() {}
+
+  void showMakalePage() {}
+
+  void showDepartmentsPage() {}
+
+  void showReklamPage() {}
+
+  void showEmegiGecenler() {}
 }
