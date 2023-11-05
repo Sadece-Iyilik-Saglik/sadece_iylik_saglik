@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sadece_iylik_saglik/core/base/state/base_state.dart';
 import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
+import 'package:sadece_iylik_saglik/view/question/question_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -130,7 +131,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
               decoration: BoxDecoration(
                 border: Border.all(
                   color: const Color(0xFFED8C42),
-                  width: 3,
+                  width: 3.5,
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -159,7 +160,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
             Colors.accents[1].shade200,
             0.1,
             0.85,
-            () => showQuestionsPage(),
+            () {},
           ),
           customMenuButton(
             "Makale",
@@ -173,7 +174,10 @@ class _HomeScreenState extends BaseState<HomeScreen> {
             Colors.accents[3].shade100,
             0.1,
             0.85,
-            () => showDepartmentsPage(),
+            () => {
+              showQuestionsPage()
+              // showDepartmentsPage()
+            },
           ),
         ],
       );
@@ -207,6 +211,10 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(15),
+          border: Border.all(
+            color: const Color(0xFFED8C42),
+            width: 0,
+          ),
           gradient: LinearGradient(
             colors: [
               const Color(0xFF273C66),
@@ -300,7 +308,14 @@ class _HomeScreenState extends BaseState<HomeScreen> {
     );
   }
 
-  void showQuestionsPage() {}
+  void showQuestionsPage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const QuestionScreen(),
+      ),
+    );
+  }
 
   void showMakalePage() {}
 

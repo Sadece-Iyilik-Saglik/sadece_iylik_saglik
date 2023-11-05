@@ -3,7 +3,7 @@ import '../model/exam_model.dart';
 import '../model/question_model.dart';
 
 class ExamViewModel {
-  final List<Exam> allExams = [
+  static List<Exam> allExams = [
     Exam(name: "Test 1", questions: [
       Question(
           content:
