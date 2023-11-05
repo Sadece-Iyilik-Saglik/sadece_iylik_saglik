@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:sadece_iylik_saglik/core/constants/image_strings.dart';
+import 'package:sadece_iylik_saglik/core/constants/app/image_strings.dart';
 
-import '../../../../core/constants/text_strings.dart';
+import '../../../../core/constants/app/text_strings.dart';
 import '../../widgets/form_header_widget.dart';
 import 'otp_screen.dart';
 

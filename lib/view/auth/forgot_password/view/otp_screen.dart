@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
-import '../../../../core/constants/text_strings.dart';
+import '../../../../core/constants/app/text_strings.dart';
 import '../../login_screen.dart';
 
 class OTPScreen extends StatelessWidget {
