@@ -135,7 +135,9 @@ class _LoginScreenState extends BaseState<LoginScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset("assets/images/google.png",),
+                Image.asset(
+                  "assets/images/google.png",
+                ),
                 const Text("   Google ile Giriş Yap"),
               ],
             )),

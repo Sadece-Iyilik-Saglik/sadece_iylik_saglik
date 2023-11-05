@@ -13,6 +13,9 @@ class LoginHeaderWidget extends StatelessWidget {
     return Column(
       children: [
         Image(
+          // image: const NetworkImage(
+          //   'https://akdeniz.edu.tr/assets/images/logo1.png',
+          // ),
           image: const AssetImage(
             'assets/images/logo/akdeniz_logo.png',
           ),

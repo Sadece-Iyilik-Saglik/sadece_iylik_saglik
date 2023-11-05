@@ -33,26 +33,86 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         ),
       );
   PreferredSizeWidget get appBar => AppBar(
-        title: const Text("Sadece İyilik Sağlık"),
-        backgroundColor: themeData.primaryColor.withOpacity(0.3),
+        centerTitle: true,
+        title: const Text(
+          "Sadece İyilik Sağlık",
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: themeData.primaryColor,
         actions: [
-          IconButton.filled(
-            onPressed: () {
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
+          PopupMenuButton<int>(
+            icon: Icon(Icons.more_vert,
+                color: Colors.white), // Daha fazla seçenekleri gösteren ikon
+            color: Color(0xFF7D818C), // Buton rengi
+            itemBuilder: (BuildContext context) {
+              return <PopupMenuEntry<int>>[
+                const PopupMenuItem<int>(
+                  value: 1,
+                  child: Text(
+                    'SSS',
+                    style:
+                        TextStyle(color: Colors.white), // Seçenek metin rengi
+                  ),
                 ),
-              );
+                const PopupMenuItem<int>(
+                  value: 2,
+                  child: Text(
+                    'İletişim',
+                    style:
+                        TextStyle(color: Colors.white), // Seçenek metin rengi
+                  ),
+                ),
+                const PopupMenuItem<int>(
+                  value: 3,
+                  child: Text(
+                    'Çıkış yap',
+                    style:
+                        TextStyle(color: Colors.white), // Seçenek metin rengi
+                  ),
+                ),
+              ];
             },
-            icon: const Icon(Icons.logout),
+            onSelected: (int value) {
+              // Seçilen seçeneğe göre işlem yapabilirsiniz.
+              switch (value) {
+                case 1:
+                  // Seçenek 1 seçildiğinde yapılacak işlem
+                  break;
+                case 2:
+                  // Seçenek 2 seçildiğinde yapılacak işlem
+                  break;
+                case 3:
+                  // Seçenek 3 seçildiğinde yapılacak işlem
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+                  break;
+              }
+            },
           )
+
+          // IconButton.filled(
+          //   style: ButtonStyle(),
+          //   onPressed: () {
+          //     Navigator.pushReplacement(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => const LoginScreen(),
+          //       ),
+          //     );
+          //   },
+          //   icon: const Icon(Icons.logout),
+          // )
         ],
       );
   Widget get carouselArea => SizedBox(
         width: double.maxFinite,
         height: dynamicHeight(0.25),
         child: PageView.builder(
+          pageSnapping: true,
           itemCount: 3,
           allowImplicitScrolling: true,
           itemBuilder: (context, index) {
@@ -64,7 +124,10 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         padding: const EdgeInsets.all(8.0),
         child: DecoratedBox(
           decoration: BoxDecoration(
-              border: Border.all(), borderRadius: BorderRadius.circular(10)),
+            border: Border.all(),
+            borderRadius: BorderRadius.circular(10),
+            boxShadow: [],
+          ),
           child: InkWell(
             onTap: () {},
             child: Center(
