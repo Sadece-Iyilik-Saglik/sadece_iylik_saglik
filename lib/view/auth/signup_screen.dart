@@ -89,9 +89,11 @@ class _SignupScreenState extends BaseState<SignupScreen> {
   Widget get headArea => SizedBox(
         height: dynamicHeight(0.2),
         child: const Center(
-          child: Text(
-            "SIS",
-            style: TextStyle(fontSize: 80.0, fontWeight: FontWeight.bold),
+          child: Image(
+            image: NetworkImage(
+              'https://akdeniz.edu.tr/assets/images/logo1.png',
+            ),
+            // height: size.height * 0.3,
           ),
         ),
       );
