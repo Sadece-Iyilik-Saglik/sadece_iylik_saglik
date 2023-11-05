@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sadece_iylik_saglik/core/base/state/base_state.dart';
 import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
+import 'package:sadece_iylik_saglik/view/article/article_screen.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
 import 'package:sadece_iylik_saglik/view/question/question_screen.dart';
 
@@ -317,7 +318,14 @@ class _HomeScreenState extends BaseState<HomeScreen> {
     );
   }
 
-  void showMakalePage() {}
+  void showMakalePage() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ArticleScreen(),
+      ),
+    );
+  }
 
   void showDepartmentsPage() {}
 
