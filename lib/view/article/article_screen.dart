@@ -3,6 +3,7 @@ import 'package:sadece_iylik_saglik/core/viewmodel/article_view_model.dart';
 
 import '../../core/base/view/base_view.dart';
 import '../../core/model/article_model.dart';
+import 'article_detail_screen.dart';
 
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen({super.key});
@@ -41,7 +42,18 @@ class _ArticleScreenState extends State<ArticleScreen> {
                   Column(
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          // Makale detay sayfasına yönlendirme yapılacak.
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) {
+                                return ArticleDetailScreen(
+                                    article: articles[i]);
+                              },
+                            ),
+                          );
+                        },
                         child: ListTile(
                           title: Text(
                             articles[i].title,
@@ -50,38 +62,35 @@ class _ArticleScreenState extends State<ArticleScreen> {
                           ),
                           subtitle: Text(articles[i].author),
                         ),
-                      ),
+                      )
                     ],
                   ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () {
-                          if (currentPage > 0) {
-                            setState(() {
-                              currentPage--;
-                            });
-                          }
-                        },
-                        child: const Text("Önceki"),
-                      ),
-                      const SizedBox(width: 16),
-                      ElevatedButton(
-                        onPressed: () {
-                          if ((currentPage + 1) * itemsPerPage <
-                              articles.length) {
-                            setState(() {
-                              currentPage++;
-                            });
-                          }
-                        },
-                        child: const Text("Sonraki"),
-                      ),
-                    ],
-                  ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    ElevatedButton(
+                      onPressed: () {
+                        if (currentPage > 0) {
+                          setState(() {
+                            currentPage--;
+                          });
+                        }
+                      },
+                      child: const Text("Önceki"),
+                    ),
+                    const SizedBox(width: 16),
+                    ElevatedButton(
+                      onPressed: () {
+                        if ((currentPage + 1) * itemsPerPage <
+                            articles.length) {
+                          setState(() {
+                            currentPage++;
+                          });
+                        }
+                      },
+                      child: const Text("Sonraki"),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -116,7 +125,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
         ),
         backgroundColor: const Color(0xFF273C66),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(56.0),
+          preferredSize: const Size.fromHeight(70.0),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
