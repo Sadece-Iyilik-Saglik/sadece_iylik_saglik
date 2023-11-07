@@ -17,7 +17,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
   TextEditingController searchController = TextEditingController();
   bool isSearching = false;
   int currentPage = 0;
-  int itemsPerPage = 9;
+  int itemsPerPage = 8;
 
   @override
   Widget build(BuildContext context) {
@@ -33,67 +33,88 @@ class _ArticleScreenState extends State<ArticleScreen> {
   Widget get scaffoldBody => Scaffold(
         appBar: appBar,
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                for (int i = currentPage * itemsPerPage;
-                    i < (currentPage + 1) * itemsPerPage && i < articles.length;
-                    i++)
-                  Column(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          // Makale detay sayfasına yönlendirme yapılacak.
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) {
-                                return ArticleDetailScreen(
-                                    article: articles[i]);
+                      for (int i = currentPage * itemsPerPage;
+                          i < (currentPage + 1) * itemsPerPage &&
+                              i < articles.length;
+                          i++)
+                        Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                // Makale detay sayfasına yönlendirme yapılacak.
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return ArticleDetailScreen(
+                                          article: articles[i]);
+                                    },
+                                  ),
+                                );
                               },
-                            ),
-                          );
-                        },
-                        child: ListTile(
-                          title: Text(
-                            articles[i].title,
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(articles[i].author),
+                              child: ListTile(
+                                title: Text(
+                                  articles[i].title,
+                                  style: const TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                subtitle: Text(articles[i].author),
+                              ),
+                            )
+                          ],
                         ),
-                      )
                     ],
                   ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    ElevatedButton(
-                      onPressed: () {
-                        if (currentPage > 0) {
-                          setState(() {
-                            currentPage--;
-                          });
-                        }
-                      },
-                      child: const Text("Önceki"),
-                    ),
-                    const SizedBox(width: 16),
-                    ElevatedButton(
-                      onPressed: () {
-                        if ((currentPage + 1) * itemsPerPage <
-                            articles.length) {
-                          setState(() {
-                            currentPage++;
-                          });
-                        }
-                      },
-                      child: const Text("Sonraki"),
-                    ),
-                  ],
                 ),
-              ],
-            ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List.generate(
+                    (articles.length / itemsPerPage).ceil(),
+                    (pageIndex) => GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          currentPage = pageIndex;
+                        });
+                      },
+                      child: Container(
+                        width: 35.0,
+                        height: 35.0,
+                        margin: const EdgeInsets.symmetric(horizontal: 7.0),
+                        decoration: BoxDecoration(
+                          // gradient: currentPage == pageIndex
+                          //     ? const LinearGradient(colors: [
+                          //         Color(0xFFED8C42),
+                          //         Color(0xFF273C66)
+                          //       ])
+                          //     : const LinearGradient(
+                          //         colors: [Colors.grey, Colors.grey]),
+                          shape: BoxShape.circle,
+                          color: currentPage == pageIndex
+                              ? const Color(0xFFED8C42) // Aktif sayfa rengi
+                              : Colors.grey, // Pasif sayfa rengi
+                        ),
+                        child: Center(
+                          child: Text(
+                            '${pageIndex + 1}',
+                            style: const TextStyle(color: Colors.white),
+                          ), // Sayfa numaralarını 1'den başlatmak için +1 ekledik.
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       );
