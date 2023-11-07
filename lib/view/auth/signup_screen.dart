@@ -116,8 +116,11 @@ class _SignupScreenState extends BaseState<SignupScreen> {
       width: double.maxFinite,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: CupertinoButton.filled(
-            onPressed: registerUser, child: const Text("Kaydol")),
+        child: CupertinoButton(
+          color: const Color(0xFFED8C42),
+          onPressed: registerUser,
+          child: const Text("Kaydol"),
+        ),
       ));
 
   Function() get registerUser => () {
@@ -158,7 +161,7 @@ class _SignupScreenState extends BaseState<SignupScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: CupertinoButton(
             onPressed: () {},
-            color: Colors.blue.shade500,
+            color: const Color(0xFF273C66),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
