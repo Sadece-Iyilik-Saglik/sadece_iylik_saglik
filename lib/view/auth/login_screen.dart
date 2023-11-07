@@ -104,26 +104,34 @@ class _LoginScreenState extends BaseState<LoginScreen> {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 16),
         child: TextButton(
-            onPressed: () {
-              ForgotPasswordScreen.buildShowModalBottomSheet(context);
-            },
-            child: const Text("Şifremi unuttum")),
+          onPressed: () {
+            ForgotPasswordScreen.buildShowModalBottomSheet(context);
+          },
+          child: const Text(
+            "Şifremi unuttum",
+            style: TextStyle(
+              color: Color(0xFF273C66),
+            ),
+          ),
+        ),
       );
   Widget get loginButton => SizedBox(
       width: double.maxFinite,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        child: CupertinoButton.filled(
-            onPressed: () {
-              Navigator.pushAndRemoveUntil(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const HomeScreen(),
-                ),
-                (route) => false,
-              );
-            },
-            child: const Text("Giriş Yap")),
+        child: CupertinoButton(
+          color: const Color(0xFFED8C42),
+          onPressed: () {
+            Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomeScreen(),
+              ),
+              (route) => false,
+            );
+          },
+          child: const Text("Giriş Yap"),
+        ),
       ));
   Widget get googleLoginButton => SizedBox(
       width: double.maxFinite,
@@ -131,7 +139,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         child: CupertinoButton(
             onPressed: () {},
-            color: Colors.blue.shade500,
+            color: const Color(0xFF273C66),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -149,7 +157,12 @@ class _LoginScreenState extends BaseState<LoginScreen> {
           children: [
             const Text("Bir hesabın yok mu? "),
             TextButton(
-                child: const Text("Kaydol"),
+                child: const Text(
+                  "Kaydol",
+                  style: TextStyle(
+                    color: Color(0xFF273C66),
+                  ),
+                ),
                 onPressed: () {
                   Navigator.push(
                       context,

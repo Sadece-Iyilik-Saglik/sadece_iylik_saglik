@@ -22,30 +22,39 @@ class TextFieldCommon extends StatelessWidget {
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
-            prefixIcon: Icon(iconData),
-            enabledBorder: const OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: Colors.deepPurple, style: BorderStyle.solid),
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
-              ),
+          prefixIcon: Icon(iconData),
+          enabledBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color(0xFF273C66),
+              style: BorderStyle.solid,
             ),
-            focusedBorder: const OutlineInputBorder(
-              borderSide: BorderSide(
-                  color: Colors.deepPurple,
-                  style: BorderStyle.solid,
-                  width: 2.5),
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
-              ),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
             ),
-            border: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(15),
-              ),
+          ),
+          focusedBorder: const OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Color(0xFFED8C42),
+              style: BorderStyle.solid,
+              width: 2.5,
             ),
-            labelText: labelText,
-            suffixIcon: suffixIcon),
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          border: const OutlineInputBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(15),
+            ),
+          ),
+          labelText: labelText,
+          suffixIcon: suffixIcon,
+          labelStyle: const TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.normal,
+            fontSize: 18,
+          ),
+        ),
       ),
     );
   }

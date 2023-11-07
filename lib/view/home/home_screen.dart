@@ -4,6 +4,7 @@ import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/view/article/article_screen.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
 import 'package:sadece_iylik_saglik/view/question/question_screen.dart';
+import 'package:photo_view/photo_view.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,6 +14,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends BaseState<HomeScreen> {
+  List<String> cardImages = [
+    "assets/images/piknik.png",
+    "assets/images/1.png",
+    "assets/images/30.png"
+  ];
+
   @override
   Widget build(BuildContext context) {
     return BaseView(
@@ -30,7 +37,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                carouselArea,
+                carouselArea(),
                 menuButtons,
                 bottomMenuButtons,
               ],
@@ -107,43 +114,83 @@ class _HomeScreenState extends BaseState<HomeScreen> {
           }
         },
       );
-  Widget get carouselArea => SizedBox(
-        width: double.maxFinite,
-        height: dynamicHeight(0.25),
-        child: PageView.builder(
-          pageSnapping: true,
-          itemCount: 3,
-          allowImplicitScrolling: true,
-          itemBuilder: (context, index) {
-            return carouselCard;
-          },
+  Widget carouselArea() {
+    return SizedBox(
+      width: double.maxFinite,
+      height: dynamicHeight(0.28),
+      child: PageView.builder(
+        pageSnapping: true,
+        itemCount: 3,
+        allowImplicitScrolling: true,
+        itemBuilder: (context, index) {
+          return carouselCard(cardImages[index]);
+        },
+      ),
+    );
+  }
+
+  Widget carouselCard(String image) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [],
         ),
-      );
-  Widget get carouselCard => Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [],
-          ),
-          child: InkWell(
-            onTap: () {},
-            child: Container(
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: const Color(0xFFED8C42),
-                  width: 3.5,
-                ),
-                borderRadius: BorderRadius.circular(10),
+        child: InkWell(
+          onTap: () {
+            showPhotoDetail(context, image);
+          },
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: const Color(0xFFED8C42),
+                width: 3.5,
               ),
-              child: Image.network(
-                "https://webis.akdeniz.edu.tr/uploads/1/slider/8229546c-01df-484e-9261-9e0559e5b595.png",
-                fit: BoxFit.cover,
-              ),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Image.asset(
+              image,
+              fit: BoxFit.cover,
             ),
           ),
         ),
-      );
+      ),
+    );
+  }
+
+  void showPhotoDetail(BuildContext context, String image) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: SizedBox(
+            width: dynamicWidth(0.95),
+            height: dynamicHeight(0.45),
+            child: Stack(
+              children: <Widget>[
+                // Fotoğrafı yakınlaştırma ve kaydırma eklemek için PhotoView kullanın
+                PhotoView(
+                  // initialScale: 0.2,
+                  maxScale: 0.99,
+                  enablePanAlways: false,
+                  enableRotation: false,
+                  disableGestures: true,
+                  // gaplessPlayback: true,
+                  // tightMode: true,
+                  // minScale: 0.8,
+                  imageProvider: AssetImage(image),
+                  backgroundDecoration: const BoxDecoration(
+                      color: Colors.transparent,
+                      backgroundBlendMode: BlendMode.clear),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   Widget get menuButtons => Column(
         children: [
@@ -153,7 +200,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
             0.1,
             0.85,
             () {
-              showGunlukSozlerDialog(context);
+              showDailyQuotesDialog(context);
             },
           ),
           customMenuButton(
@@ -168,7 +215,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
             Colors.accents[2].shade200,
             0.1,
             0.85,
-            () => showMakalePage(),
+            () => showArticlePage(),
           ),
           customMenuButton(
             "Departmanlar",
@@ -190,14 +237,14 @@ class _HomeScreenState extends BaseState<HomeScreen> {
             Colors.accents[4].shade200,
             0.1,
             0.40,
-            () => showReklamPage(),
+            () => showAdPage(),
           ),
           customMenuButton(
             "Emeği Geçenler",
             Colors.accents[5].shade200,
             0.1,
             0.4,
-            showEmegiGecenler,
+            showContributors,
           ),
         ],
       );
@@ -212,10 +259,10 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         decoration: BoxDecoration(
           color: color,
           borderRadius: BorderRadius.circular(15),
-          border: Border.all(
-            color: const Color(0xFFED8C42),
-            width: 0,
-          ),
+          // border: Border.all(
+          //   color: const Color(0xFFED8C42),
+          //   width: 0,
+          // ),
           gradient: LinearGradient(
             colors: [
               const Color(0xFF273C66),
@@ -235,7 +282,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
     );
   }
 
-  void showGunlukSozlerDialog(BuildContext context) {
+  void showDailyQuotesDialog(BuildContext context) {
     showGeneralDialog(
       barrierLabel: "Label",
       barrierDismissible: true,
@@ -318,7 +365,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
     );
   }
 
-  void showMakalePage() {
+  void showArticlePage() {
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -329,7 +376,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
 
   void showDepartmentsPage() {}
 
-  void showReklamPage() {}
+  void showAdPage() {}
 
-  void showEmegiGecenler() {}
+  void showContributors() {}
 }

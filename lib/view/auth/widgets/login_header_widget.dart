@@ -13,8 +13,8 @@ class LoginHeaderWidget extends StatelessWidget {
     return Column(
       children: [
         Image(
-          image: const AssetImage(
-            'assets/images/logo/akdeniz_logo.png',
+          image: const NetworkImage(
+            'https://webis.akdeniz.edu.tr/uploads/1/content/AU-logo.png',
           ),
           height: size.height * 0.3,
         ),
@@ -23,9 +23,12 @@ class LoginHeaderWidget extends StatelessWidget {
         //   style: Theme.of(context).textTheme.headlineMedium,
         // ),
         showText
-            ? Text(
-                'Sadece iyilik sağlık topluluğu tarafından yapılmıştır',
-                style: Theme.of(context).textTheme.labelLarge,
+            ? Padding(
+                padding: const EdgeInsets.only(top: 12.0),
+                child: Text(
+                  'Sadece iyilik sağlık topluluğu tarafından yapılmıştır',
+                  style: Theme.of(context).textTheme.labelLarge,
+                ),
               )
             : const Text(''),
       ],

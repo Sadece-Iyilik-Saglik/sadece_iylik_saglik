@@ -3,6 +3,7 @@ import 'package:sadece_iylik_saglik/core/viewmodel/article_view_model.dart';
 
 import '../../core/base/view/base_view.dart';
 import '../../core/model/article_model.dart';
+import 'article_detail_screen.dart';
 
 class ArticleScreen extends StatefulWidget {
   const ArticleScreen({super.key});
@@ -16,8 +17,9 @@ class _ArticleScreenState extends State<ArticleScreen> {
   TextEditingController searchController = TextEditingController();
   bool isSearching = false;
   int currentPage = 0;
-  int itemsPerPage = 9;
-
+  int itemsPerPage = 8;
+  late final Function(int) onChange;
+  late final List<String> textArray;
   @override
   Widget build(BuildContext context) {
     return BaseView(
@@ -32,59 +34,11 @@ class _ArticleScreenState extends State<ArticleScreen> {
   Widget get scaffoldBody => Scaffold(
         appBar: appBar,
         body: SafeArea(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                for (int i = currentPage * itemsPerPage;
-                    i < (currentPage + 1) * itemsPerPage && i < articles.length;
-                    i++)
-                  Column(
-                    children: [
-                      GestureDetector(
-                        onTap: () {},
-                        child: ListTile(
-                          title: Text(
-                            articles[i].title,
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          ),
-                          subtitle: Text(articles[i].author),
-                        ),
-                      ),
-                    ],
-                  ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () {
-                          if (currentPage > 0) {
-                            setState(() {
-                              currentPage--;
-                            });
-                          }
-                        },
-                        child: const Text("Önceki"),
-                      ),
-                      const SizedBox(width: 16),
-                      ElevatedButton(
-                        onPressed: () {
-                          if ((currentPage + 1) * itemsPerPage <
-                              articles.length) {
-                            setState(() {
-                              currentPage++;
-                            });
-                          }
-                        },
-                        child: const Text("Sonraki"),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          child: Column(
+            children: [
+              allArticles,
+              pageButtons,
+            ],
           ),
         ),
       );
@@ -116,7 +70,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
         ),
         backgroundColor: const Color(0xFF273C66),
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(56.0),
+          preferredSize: const Size.fromHeight(70.0),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -148,4 +102,98 @@ class _ArticleScreenState extends State<ArticleScreen> {
           ),
         ),
       );
+
+  Widget get allArticles => Expanded(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              for (int i = currentPage * itemsPerPage;
+                  i < (currentPage + 1) * itemsPerPage && i < articles.length;
+                  i++)
+                Column(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // Makale detay sayfasına yönlendirme yapılacak.
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return ArticleDetailScreen(article: articles[i]);
+                            },
+                          ),
+                        );
+                      },
+                      child: ListTile(
+                        title: Text(
+                          articles[i].title,
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(articles[i].author),
+                      ),
+                    )
+                  ],
+                ),
+            ],
+          ),
+        ),
+      );
+
+  Widget get pageButtons => Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CircularArrow(
+              icon: const Icon(
+                Icons.keyboard_arrow_left,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                if (currentPage <= 0) {
+                  return;
+                }
+                setState(() {
+                  currentPage -= 1;
+                });
+              },
+            ),
+            Text(
+              "${currentPage + 1}",
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
+            CircularArrow(
+              icon: const Icon(
+                Icons.keyboard_arrow_right,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                if (currentPage >= (articles.length) / 8 - 1) {
+                  return;
+                }
+                setState(() {
+                  currentPage += 1;
+                });
+              },
+            ),
+          ],
+        ),
+      );
+}
+
+class CircularArrow extends StatelessWidget {
+  final Icon icon;
+  final Function() onPressed;
+  const CircularArrow({required this.icon, required this.onPressed, Key? key})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: CircleAvatar(backgroundColor: Color(0xFFED8C42), child: icon),
+      iconSize: 25,
+    );
+  }
 }
