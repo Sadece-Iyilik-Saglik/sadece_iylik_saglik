@@ -138,7 +138,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
               ),
               child: Image.network(
                 "https://webis.akdeniz.edu.tr/uploads/1/slider/8229546c-01df-484e-9261-9e0559e5b595.png",
-                fit: BoxFit.cover,
+                fit: BoxFit.fill,
               ),
             ),
           ),

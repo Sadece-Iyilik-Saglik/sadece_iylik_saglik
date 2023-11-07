@@ -93,6 +93,9 @@ class _SignupScreenState extends BaseState<SignupScreen> {
             image: NetworkImage(
               'https://akdeniz.edu.tr/assets/images/logo1.png',
             ),
+            // image: NetworkImage(
+            //   'https://instagram.fesb7-1.fna.fbcdn.net/v/t51.2885-19/325517073_582066547075061_3648101778798768242_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fesb7-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=sw4GO1Md33UAX-BqB4R&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfAI-pf0uVhrVZhxxJEycucKmTX4n4hqUND0Zyc060WgGA&oe=654F14DF&_nc_sid=ee9879',
+            // ),
             // height: size.height * 0.3,
           ),
         ),
