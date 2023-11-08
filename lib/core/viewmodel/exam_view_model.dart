@@ -7,7 +7,7 @@ class ExamViewModel {
     Exam(name: "Test 1", questions: [
       Question(
           content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Curabitur suscipit posuere nisl nec efficitur ?",
           questionType: QuestionType.COKTAN_SECMELI,
           options: [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -19,7 +19,7 @@ class ExamViewModel {
           trueOptionIndex: 2),
       Question(
           content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis?",
           questionType: QuestionType.COKTAN_SECMELI,
           options: [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -31,7 +31,7 @@ class ExamViewModel {
           trueOptionIndex: 2),
       Question(
           content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis?",
           questionType: QuestionType.COKTAN_SECMELI,
           options: [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -43,7 +43,7 @@ class ExamViewModel {
           trueOptionIndex: 2),
       Question(
           content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis?",
           questionType: QuestionType.COKTAN_SECMELI,
           options: [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -55,7 +55,7 @@ class ExamViewModel {
           trueOptionIndex: 2),
       Question(
           content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis.",
+              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis?",
           questionType: QuestionType.COKTAN_SECMELI,
           options: [
             "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
