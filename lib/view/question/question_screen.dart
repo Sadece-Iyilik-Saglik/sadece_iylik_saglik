@@ -65,6 +65,7 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
             bottomRight: Radius.circular(20),
           ),
         ),
+        width: dynamicWidth(0.7),
         backgroundColor: const Color(0xFF2A4270),
         clipBehavior: Clip.antiAlias,
         child: Column(
@@ -81,8 +82,7 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
         alignment: Alignment.center,
         child: const Text(
           "Komite 1\nDers 1", // Replace with your quiz title
-          style: TextStyle(
-              color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
         ),
       );
 
@@ -94,24 +94,20 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
           itemCount: 10,
           itemBuilder: (context, index) {
             return Padding(
-              padding: const EdgeInsets.all(18.0),
+              padding: const EdgeInsets.all(12.0),
               child: ElevatedButton(
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.white),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(10), // Rectangle shape
+                      borderRadius: BorderRadius.circular(10), // Rectangle shape
                     ),
                   ),
                 ),
                 onPressed: () {},
                 child: Text(
                   "${index + 1}",
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                 ),
               ),
             );
@@ -119,107 +115,58 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
         ),
       );
 
-  Widget get decisionButtons => Padding(
-        padding:
-            const EdgeInsets.only(left: 20, right: 20, bottom: 150, top: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {},
+  Widget get decisionButtons => Row(
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: [
+      SizedBox(
+        width: dynamicWidth(0.7),
+        height: dynamicHeight(0.3),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 20, right: 20, bottom: 200),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  // Add your function to handle the "Finish Quiz" button tap here
+                },
                 style: ButtonStyle(
                   backgroundColor: MaterialStateProperty.all(Colors.blue),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(10), // Rectangle shape
-                    )),),child: Container(
-              padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
-              alignment: Alignment.center,
-              child: const Text(
-                "Komite 1\nDers 1", // Replace with your quiz title
-                style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
-              ),)
-            
-            )),
-            Expanded(
-              child: GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3, // Number of buttons in a row
+                      borderRadius: BorderRadius.circular(10), // Rectangle shape
+                    ),
+                  ),
                 ),
-                itemCount: 10, // Replace with the number of questions
-                itemBuilder: (context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(18.0),
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.white),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10), // Rectangle shape
-                          ),
-                        ),
-                      ),
-                      onPressed: () {},
-                      child: Text(
-                        "${index + 1}",
-                        style: const TextStyle(color: Colors.black, fontSize: 14),
-                      ),
-                    ),
-                  );
-})
+                child: const Text(
+                  "Ara ver",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
               ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, right: 20, bottom: 200),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Add your function to handle the "Finish Quiz" button tap here
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.blue),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10), // Rectangle shape
-                          ),
-                        ),
-                      ),
-                      child: const Text(
-                        "Ara ver",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
+              const SizedBox(width: 10),
+              ElevatedButton(
+                onPressed: () {
+                  // Add your function to handle the "End Quiz" button tap here
+                },
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.red),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10), // Rectangle shape
                     ),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: ElevatedButton(
-                      onPressed: () {
-                        // Add your function to handle the "End Quiz" button tap here
-                      },
-                      style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.red),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10), // Rectangle shape
-                          ),
-                        ),
-                      ),
-                      child: const Text(
-                        "Bitir",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
+                child: const Text(
+                  "Bitir",
+                  style: TextStyle(color: Colors.white, fontSize: 16),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
-      );
+      ),
+    ],
+  );
 
   Widget get bottomBar => BottomAppBar(
         elevation: 100,
@@ -355,8 +302,7 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
 class ButtonImageFb1 extends StatelessWidget {
   final String text;
   final Function() onPressed;
-  const ButtonImageFb1({required this.text, required this.onPressed, Key? key})
-      : super(key: key);
+  const ButtonImageFb1({required this.text, required this.onPressed, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -375,8 +321,7 @@ class ButtonImageFb1 extends StatelessWidget {
           child: MaterialButton(
             onPressed: onPressed,
             splashColor: Colors.lightBlue,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(36)),
+            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(36)),
             padding: const EdgeInsets.all(0.0),
             child: Ink(
                 decoration: BoxDecoration(
@@ -389,14 +334,10 @@ class ButtonImageFb1 extends StatelessWidget {
                   borderRadius: BorderRadius.circular(36),
                 ),
                 child: Container(
-                    constraints: const BoxConstraints(
-                        minWidth: 88.0,
-                        minHeight: 36.0), // min sizes for Material buttons
+                    constraints:
+                        const BoxConstraints(minWidth: 88.0, minHeight: 36.0), // min sizes for Material buttons
                     alignment: Alignment.center,
-                    child: Text(text,
-                        style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w300)))),
+                    child: Text(text, style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w300)))),
           ),
         ),
       ),
