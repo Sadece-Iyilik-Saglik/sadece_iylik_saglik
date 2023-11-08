@@ -16,13 +16,7 @@ class QuestionScreen extends StatefulWidget {
 
 class _QuestionScreenState extends BaseState<QuestionScreen> {
   List<Exam> get ex => ExamViewModel.allExams;
-<<<<<<< HEAD
-  Color selectedButtonColor = const Color(0xFFED8C42);
-  Color unSelectedButtonColor = Colors.white;
-
-=======
   int selectedOption = -1;
->>>>>>> exam_screen
   @override
   Widget build(BuildContext context) {
     return BaseView(
@@ -59,12 +53,8 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
           style: TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color(0xFFED8C42),
-<<<<<<< HEAD
-        actions: [],
-=======
         // backgroundColor: themeData.primaryColor,
         actions: const [],
->>>>>>> exam_screen
       );
 
   Widget get drawer => Drawer(
@@ -79,7 +69,6 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: <Widget>[
-<<<<<<< HEAD
             drawerHeader,
             questionButtons,
             decisionButtons,
@@ -145,15 +134,15 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
                     RoundedRectangleBorder(
                       borderRadius:
                           BorderRadius.circular(10), // Rectangle shape
-=======
-            Container(
+                    )),),child: Container(
               padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
               alignment: Alignment.center,
               child: const Text(
                 "Komite 1\nDers 1", // Replace with your quiz title
                 style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-            ),
+              ),)
+            
+            )),
             Expanded(
               child: GridView.builder(
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -177,35 +166,10 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
                         "${index + 1}",
                         style: const TextStyle(color: Colors.black, fontSize: 14),
                       ),
->>>>>>> exam_screen
                     ),
-                  ),
-                ),
-                child: const Text(
-                  "Ara ver",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
+                  );
+})
               ),
-            ),
-<<<<<<< HEAD
-            const SizedBox(width: 10),
-            Expanded(
-              child: ElevatedButton(
-                onPressed: () {},
-                style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.red),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(10), // Rectangle shape
-                    ),
-                  ),
-                ),
-                child: const Text(
-                  "Bitir",
-                  style: TextStyle(color: Colors.white, fontSize: 16),
-                ),
-=======
             Padding(
               padding: const EdgeInsets.only(left: 20, right: 20, bottom: 200),
               child: Row(
@@ -251,7 +215,6 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
                     ),
                   ),
                 ],
->>>>>>> exam_screen
               ),
             ),
           ],
