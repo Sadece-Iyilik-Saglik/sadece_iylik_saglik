@@ -88,7 +88,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
   Widget get emailTextField => TextFieldCommon(
         controller: emailController,
         iconData: Icons.email_outlined,
-        labelText: 'E-mail',
+        labelText: 'Öğrenci e-mail',
         obscureText: false,
       );
   Widget get passwordTextField => TextFieldCommon(

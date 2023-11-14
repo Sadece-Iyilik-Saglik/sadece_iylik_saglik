@@ -64,7 +64,7 @@ class _SignupScreenState extends BaseState<SignupScreen> {
                     TextFieldCommon(
                       controller: emailController,
                       iconData: Icons.email_outlined,
-                      labelText: "E-mail",
+                      labelText: "Öğrenci e-mail",
                       obscureText: false,
                     ),
                     TextFieldCommon(

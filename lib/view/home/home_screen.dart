@@ -195,12 +195,12 @@ class _HomeScreenState extends BaseState<HomeScreen> {
   Widget get menuButtons => Column(
         children: [
           customMenuButton(
-            "Günlük Sözler",
+            "Buraya günlük sözler gelecek",
             Colors.accents[0].shade100,
             0.1,
             0.85,
             () {
-              showDailyQuotesDialog(context);
+              // showDailyQuotesDialog(context);
             },
           ),
           customMenuButton(
@@ -282,79 +282,79 @@ class _HomeScreenState extends BaseState<HomeScreen> {
     );
   }
 
-  void showDailyQuotesDialog(BuildContext context) {
-    showGeneralDialog(
-      barrierLabel: "Label",
-      barrierDismissible: true,
-      barrierColor: Colors.black.withOpacity(0.6),
-      transitionDuration: const Duration(milliseconds: 200),
-      context: context,
-      pageBuilder: (context, animation1, animation2) {
-        final curvedValue = Curves.easeInOut.transform(animation1.value);
-        return Center(
-          child: SizedBox(
-            width: dynamicWidth(0.9),
-            child: Material(
-              color: Colors.transparent,
-              child: Transform.scale(
-                scale: 1 + (0.2 * curvedValue),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Container(
-                        width: double.infinity,
-                        padding: const EdgeInsets.all(20),
-                        decoration: const BoxDecoration(
-                          color: Color(0xFF273C66),
-                          borderRadius: BorderRadius.only(
-                            topLeft: Radius.circular(15),
-                            topRight: Radius.circular(15),
-                          ),
-                        ),
-                        child: const Center(
-                          child: Text(
-                            "Günlük Sözler",
-                            style: TextStyle(
-                              fontSize: 24,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        padding: const EdgeInsets.all(16),
-                        child: Column(
-                          children: <Widget>[
-                            const Text(
-                              "Burada günlük sözlerin içeriği veya diğer bilgiler yer alabilir.",
-                              style: TextStyle(fontSize: 17),
-                            ),
-                            const SizedBox(height: 20),
-                            ElevatedButton(
-                              style: const ButtonStyle(),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text("Kapat"),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ),
-        );
-      },
-    );
-  }
+  // void showDailyQuotesDialog(BuildContext context) {
+  //   showGeneralDialog(
+  //     barrierLabel: "Label",
+  //     barrierDismissible: true,
+  //     barrierColor: Colors.black.withOpacity(0.6),
+  //     transitionDuration: const Duration(milliseconds: 200),
+  //     context: context,
+  //     pageBuilder: (context, animation1, animation2) {
+  //       final curvedValue = Curves.easeInOut.transform(animation1.value);
+  //       return Center(
+  //         child: SizedBox(
+  //           width: dynamicWidth(0.9),
+  //           child: Material(
+  //             color: Colors.transparent,
+  //             child: Transform.scale(
+  //               scale: 1 + (0.2 * curvedValue),
+  //               child: Container(
+  //                 decoration: BoxDecoration(
+  //                   color: Colors.white,
+  //                   borderRadius: BorderRadius.circular(15),
+  //                 ),
+  //                 child: Column(
+  //                   mainAxisSize: MainAxisSize.min,
+  //                   children: <Widget>[
+  //                     Container(
+  //                       width: double.infinity,
+  //                       padding: const EdgeInsets.all(20),
+  //                       decoration: const BoxDecoration(
+  //                         color: Color(0xFF273C66),
+  //                         borderRadius: BorderRadius.only(
+  //                           topLeft: Radius.circular(15),
+  //                           topRight: Radius.circular(15),
+  //                         ),
+  //                       ),
+  //                       child: const Center(
+  //                         child: Text(
+  //                           "Günlük Sözler",
+  //                           style: TextStyle(
+  //                             fontSize: 24,
+  //                             color: Colors.white,
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ),
+  //                     Container(
+  //                       padding: const EdgeInsets.all(16),
+  //                       child: Column(
+  //                         children: <Widget>[
+  //                           const Text(
+  //                             "Burada günlük sözlerin içeriği veya diğer bilgiler yer alabilir.",
+  //                             style: TextStyle(fontSize: 17),
+  //                           ),
+  //                           const SizedBox(height: 20),
+  //                           ElevatedButton(
+  //                             style: const ButtonStyle(),
+  //                             onPressed: () {
+  //                               Navigator.of(context).pop();
+  //                             },
+  //                             child: const Text("Kapat"),
+  //                           ),
+  //                         ],
+  //                       ),
+  //                     ),
+  //                   ],
+  //                 ),
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
 
   void showQuestionsPage() {
     Navigator.push(

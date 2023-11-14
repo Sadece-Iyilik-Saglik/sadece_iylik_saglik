@@ -13,8 +13,8 @@ class LoginHeaderWidget extends StatelessWidget {
     return Column(
       children: [
         Image(
-          image: const NetworkImage(
-            'https://webis.akdeniz.edu.tr/uploads/1/content/AU-logo.png',
+          image: const AssetImage(
+            'assets/images/logo/akdeniz_logo.png',
           ),
           height: size.height * 0.3,
         ),
