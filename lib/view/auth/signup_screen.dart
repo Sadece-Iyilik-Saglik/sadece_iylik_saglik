@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sadece_iylik_saglik/core/base/state/base_state.dart';
 import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
+import 'package:sadece_iylik_saglik/core/constants/app/image_strings.dart';
 import 'package:sadece_iylik_saglik/core/model/user_model.dart';
 import 'package:sadece_iylik_saglik/core/network/auth/auth.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
@@ -55,7 +56,7 @@ class _SignupScreenState extends BaseState<SignupScreen> {
               ),
               // headArea,
               SizedBox(
-                height: dynamicHeight(0.53),
+                height: dynamicHeight(0.55),
                 child: Column(
                   children: [
                     TextFieldCommon(
@@ -105,14 +106,14 @@ class _SignupScreenState extends BaseState<SignupScreen> {
           height: sizeHeight * 0.34,
           color: AppColor.kLine,
         ),
-        Image.network('https://akdeniz.edu.tr/assets/images/logo1.png'),
+        Image.asset(ImagesPath.akdenizSignupLogo),
       ],
     );
   }
 
-  Widget get headArea => const Image(
-        image: NetworkImage(
-          'https://akdeniz.edu.tr/assets/images/logo1.png',
+  Widget get headArea => Image(
+        image: AssetImage(
+          ImagesPath.akdenizSignupLogo,
         ),
       );
 
