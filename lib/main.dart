@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'view/auth/login_screen.dart';
+import 'package:sadece_iylik_saglik/view/onboarding/onboarding_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,9 +16,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const LoginScreen(),
+      home: const OnBoardingScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
 }
-
