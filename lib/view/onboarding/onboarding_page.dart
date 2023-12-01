@@ -122,12 +122,11 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         onTap: () {
           if (_currentIndex ==
               (OnBoardingViewModel.onboardingList.length - 1)) {
-            Navigator.pushAndRemoveUntil(
+            Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => const SignupScreen(),
               ),
-              (route) => false,
             );
           } else {
             _pageController.nextPage(
@@ -146,13 +145,15 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget get customTextButton {
     return CustomTextButton(
       onPressed: () {
-        Navigator.pushAndRemoveUntil(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const LoginScreen(),
-          ),
-          (route) => false,
-        );
+        _currentIndex == (OnBoardingViewModel.onboardingList.length - 1)
+            ? Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              )
+            : _pageController
+                .jumpToPage(OnBoardingViewModel.onboardingList.length - 1);
       },
       text: _currentIndex == (OnBoardingViewModel.onboardingList.length - 1)
           ? 'Giriş yap'
