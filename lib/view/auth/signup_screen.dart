@@ -7,6 +7,9 @@ import 'package:sadece_iylik_saglik/core/network/auth/auth.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
 import 'package:sadece_iylik_saglik/view/auth/widgets/text_field_common.dart';
 
+import '../../core/constants/app/color_strings.dart';
+import '../onboarding/components/card_customized.dart';
+
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
 
@@ -19,6 +22,8 @@ class _SignupScreenState extends BaseState<SignupScreen> {
   late TextEditingController surnameController;
   late TextEditingController emailController;
   late TextEditingController passwordController;
+  late dynamic sizeHeight;
+
   @override
   void initState() {
     nameController = TextEditingController();
@@ -40,13 +45,17 @@ class _SignupScreenState extends BaseState<SignupScreen> {
   }
 
   Widget get scaffoldBody => Scaffold(
-        appBar: appBar,
         body: SingleChildScrollView(
           child: Column(
             children: [
-              headArea,
+              imageCard,
+              Text(
+                'Sadece iyilik sağlık topluluğu tarafından yapılmıştır',
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              // headArea,
               SizedBox(
-                height: dynamicHeight(0.8),
+                height: dynamicHeight(0.53),
                 child: Column(
                   children: [
                     TextFieldCommon(
@@ -75,35 +84,41 @@ class _SignupScreenState extends BaseState<SignupScreen> {
                     ),
                     loginButton,
                     googleRegisterButton,
-                    loginArea,
                   ],
                 ),
-              )
+              ),
+              loginArea
             ],
           ),
         ),
       );
 
   PreferredSizeWidget get appBar => AppBar();
+  Widget get imageCard {
+    sizeHeight = MediaQuery.of(context).size.height;
 
-  Widget get headArea => SizedBox(
-        height: dynamicHeight(0.2),
-        child: const Center(
-          child: Image(
-            image: NetworkImage(
-              'https://akdeniz.edu.tr/assets/images/logo1.png',
-            ),
-            // image: NetworkImage(
-            //   'https://instagram.fesb7-1.fna.fbcdn.net/v/t51.2885-19/325517073_582066547075061_3648101778798768242_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fesb7-1.fna.fbcdn.net&_nc_cat=105&_nc_ohc=sw4GO1Md33UAX-BqB4R&edm=ACWDqb8BAAAA&ccb=7-5&oh=00_AfAI-pf0uVhrVZhxxJEycucKmTX4n4hqUND0Zyc060WgGA&oe=654F14DF&_nc_sid=ee9879',
-            // ),
-            // height: size.height * 0.3,
-          ),
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        WaveCard(
+          height: sizeHeight * 0.34,
+          color: AppColor.kLine,
+        ),
+        Image.network('https://akdeniz.edu.tr/assets/images/logo1.png'),
+      ],
+    );
+  }
+
+  Widget get headArea => const Image(
+        image: NetworkImage(
+          'https://akdeniz.edu.tr/assets/images/logo1.png',
         ),
       );
 
   Widget customController(TextEditingController controller, String hint) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextField(
         controller: controller,
         decoration:
@@ -115,7 +130,7 @@ class _SignupScreenState extends BaseState<SignupScreen> {
   Widget get loginButton => SizedBox(
       width: double.maxFinite,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.only(right: 16, left: 16, top: 25),
         child: CupertinoButton(
           color: const Color(0xFFED8C42),
           onPressed: registerUser,
@@ -158,7 +173,7 @@ class _SignupScreenState extends BaseState<SignupScreen> {
   Widget get googleRegisterButton => SizedBox(
       width: double.maxFinite,
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: const EdgeInsets.only(right: 16, left: 16, top: 12),
         child: CupertinoButton(
             onPressed: () {},
             color: const Color(0xFF273C66),
@@ -177,7 +192,10 @@ class _SignupScreenState extends BaseState<SignupScreen> {
           children: [
             const Text("Zaten bir hesabın var mı? "),
             TextButton(
-                child: const Text("Giriş Yap"),
+                child: const Text(
+                  "Giriş Yap",
+                  style: TextStyle(color: Colors.black),
+                ),
                 onPressed: () {
                   Navigator.pushReplacement(
                       context,

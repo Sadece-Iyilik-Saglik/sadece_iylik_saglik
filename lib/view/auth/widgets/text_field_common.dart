@@ -18,12 +18,12 @@ class TextFieldCommon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
       child: TextField(
         controller: controller,
         decoration: InputDecoration(
           prefixIcon: Icon(iconData),
-          enabledBorder: const OutlineInputBorder(
+          enabledBorder: const UnderlineInputBorder(
             borderSide: BorderSide(
               color: Color(0xFF273C66),
               style: BorderStyle.solid,
@@ -32,7 +32,7 @@ class TextFieldCommon extends StatelessWidget {
               Radius.circular(15),
             ),
           ),
-          focusedBorder: const OutlineInputBorder(
+          focusedBorder: const UnderlineInputBorder(
             borderSide: BorderSide(
               color: Color(0xFFED8C42),
               style: BorderStyle.solid,
