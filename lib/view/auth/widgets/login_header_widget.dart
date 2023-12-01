@@ -18,10 +18,6 @@ class LoginHeaderWidget extends StatelessWidget {
           ),
           height: size.height * 0.3,
         ),
-        // Text(
-        //   'Welcome Back',
-        //   style: Theme.of(context).textTheme.headlineMedium,
-        // ),
         showText
             ? Padding(
                 padding: const EdgeInsets.only(top: 12.0),

@@ -1,11 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/view/auth/signup_screen.dart';
 import 'package:sadece_iylik_saglik/view/auth/widgets/login_header_widget.dart';
 import 'package:sadece_iylik_saglik/view/auth/widgets/text_field_common.dart';
 import 'package:sadece_iylik_saglik/view/home/home_screen.dart';
 import '../../core/base/state/base_state.dart';
+import '../../core/constants/app/color_strings.dart';
+import '../onboarding/components/card_customized.dart';
 import 'forgot_password/model/forgot_password_model_bottom_sheet.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -19,6 +22,7 @@ class _LoginScreenState extends BaseState<LoginScreen> {
   late TextEditingController emailController;
   late TextEditingController passwordController;
   late dynamic size;
+  late dynamic sizeHeight;
   bool _isPasswordVisible = false;
 
   @override
@@ -58,9 +62,14 @@ class _LoginScreenState extends BaseState<LoginScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              headArea,
+              imageCard,
+              Text(
+                'Sadece iyilik sağlık topluluğu tarafından yapılmıştır',
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
+              // headArea,
               SizedBox(
-                height: dynamicHeight(0.45),
+                height: dynamicHeight(0.42),
                 child: Column(
                   children: [
                     emailTextField,
@@ -77,6 +86,25 @@ class _LoginScreenState extends BaseState<LoginScreen> {
         ),
       );
 
+  Widget get imageCard {
+    sizeHeight = MediaQuery.of(context).size.height;
+
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.center,
+      children: [
+        WaveCard(
+          height: sizeHeight * 0.47,
+          color: AppColor.kLine,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 70.0, right: 70.0),
+          child: Image.asset('assets/images/logo/akdeniz_logo.png'),
+        ),
+      ],
+    );
+  }
+
   Widget get headArea => Padding(
         padding: const EdgeInsets.only(top: 40.0, bottom: 50),
         child: LoginHeaderWidget(
@@ -84,7 +112,6 @@ class _LoginScreenState extends BaseState<LoginScreen> {
           showText: true,
         ),
       );
-  // Text("Giriş Yap", style: themeData.textTheme.headlineLarge)
   Widget get emailTextField => TextFieldCommon(
         controller: emailController,
         iconData: Icons.email_outlined,
