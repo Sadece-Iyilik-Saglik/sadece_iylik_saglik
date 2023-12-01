@@ -17,8 +17,8 @@ class ForgotPasswordMailScreen extends StatelessWidget {
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
-                const FormHeaderWidget(
-                  image: akdenizLogo,
+                FormHeaderWidget(
+                  image: ImagesPath.akdenizLogo,
                   subtitle: forgotMailSubTitle,
                   imageHeight: 0.5,
                 ),
