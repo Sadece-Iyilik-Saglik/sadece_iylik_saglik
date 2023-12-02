@@ -3,6 +3,21 @@ import '../model/exam_model.dart';
 import '../model/question_model.dart';
 
 class ExamViewModel {
+
+  static List<String> get periods => [
+    "Dönem 1",
+    "Dönem 2",
+    "Dönem 3",
+    "Dönem 4",
+  ];
+  static List<String> get committees => [
+    "Komite 1",
+    "Komite 2",
+    "Komite 3",
+    "Komite 4",
+  ];
+
+
   static List<Exam> allExams = [
     Exam(name: "Test 1", questions: [
       Question(

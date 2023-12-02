@@ -5,6 +5,7 @@ import 'package:sadece_iylik_saglik/view/article/article_screen.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
 import 'package:sadece_iylik_saglik/view/question/question_screen.dart';
 import 'package:photo_view/photo_view.dart';
+import 'package:sadece_iylik_saglik/view/question/pre_question_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -135,7 +136,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
       child: DecoratedBox(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          boxShadow: [],
+          boxShadow: const [],
         ),
         child: InkWell(
           onTap: () {
@@ -208,7 +209,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
             Colors.accents[1].shade200,
             0.1,
             0.85,
-            () {},
+            () =>Navigator.push(context, MaterialPageRoute(builder: (context) => const PreQuestionScreen(),)),
           ),
           customMenuButton(
             "Makale",
