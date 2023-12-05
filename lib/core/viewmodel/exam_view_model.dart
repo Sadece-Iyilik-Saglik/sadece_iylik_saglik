@@ -1,85 +1,61 @@
+import 'package:sadece_iylik_saglik/core/constants/enum/komite_enum.dart';
+import 'package:sadece_iylik_saglik/core/constants/enum/donem_enum.dart';
+
 import '../constants/enum/question_enum.dart';
 import '../model/exam_model.dart';
 import '../model/question_model.dart';
 
 class ExamViewModel {
-
-  static List<String> get periods => [
-    "Dönem 1",
-    "Dönem 2",
-    "Dönem 3",
-    "Dönem 4",
-  ];
-  static List<String> get committees => [
-    "Komite 1",
-    "Komite 2",
-    "Komite 3",
-    "Komite 4",
-  ];
-
-
   static List<Exam> allExams = [
-    Exam(name: "Test 1", questions: [
+    Exam(examName: "Anatomi Testi", komiteName: Komite.Komite_1, donemName: Donem.Donem_1, questions: [
       Question(
-          content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Curabitur suscipit posuere nisl nec efficitur ?",
+          content: "İnsan vücudundaki en büyük organ hangisidir?",
           questionType: QuestionType.COKTAN_SECMELI,
           options: [
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "Vivamus sit amet lobortis erat. Vestibulum at iaculis magna, id imperdiet sem.",
-            "Donec feugiat tincidunt diam ac fermentum. Ut semper eros ac rhoncus vestibulum.",
-            "Nulla facilisi. Nunc finibus vel augue in luctus.",
-            "Ut semper dignissim dignissim. Integer eget eros tellus."
+            "Karaciğer",
+            "Kalp",
+            "Cilt",
+            "Beyin",
+            "Akciğer",
           ],
           trueOptionIndex: 2),
       Question(
-          content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis?",
+          content: "Aşağıdaki iskelet sistemi organlarından hangisi hareketi sağlar?",
           questionType: QuestionType.COKTAN_SECMELI,
           options: [
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "Vivamus sit amet lobortis erat. Vestibulum at iaculis magna, id imperdiet sem.",
-            "Donec feugiat tincidunt diam ac fermentum. Ut semper eros ac rhoncus vestibulum.",
-            "Nulla facilisi. Nunc finibus vel augue in luctus.",
-            "Ut semper dignissim dignissim. Integer eget eros tellus."
+            "Kas",
+            "Kemik",
+            "Kalp",
+            "Cilt",
+            "Böbrek",
+          ],
+          trueOptionIndex: 0),
+      // ... Diğer sorular buraya eklenebilir
+    ]),
+    Exam(examName: "Fizyoloji Sınavı", komiteName: Komite.Komite_1, donemName: Donem.Donem_1, questions: [
+      Question(
+          content: "İnsan vücudu hangi sistemle oksijen alır ve karbon dioksit atar?",
+          questionType: QuestionType.COKTAN_SECMELI,
+          options: [
+            "Solunum Sistemi",
+            "Dolaşım Sistemi",
+            "Sindirim Sistemi",
+            "Üreme Sistemi",
+            "Endokrin Sistemi",
+          ],
+          trueOptionIndex: 0),
+      Question(
+          content: "Kanın ana bileşeni nedir?",
+          questionType: QuestionType.COKTAN_SECMELI,
+          options: [
+            "Su",
+            "Şeker",
+            "Protein",
+            "Yağ",
+            "Vitamin",
           ],
           trueOptionIndex: 2),
-      Question(
-          content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis?",
-          questionType: QuestionType.COKTAN_SECMELI,
-          options: [
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "Vivamus sit amet lobortis erat. Vestibulum at iaculis magna, id imperdiet sem.",
-            "Donec feugiat tincidunt diam ac fermentum. Ut semper eros ac rhoncus vestibulum.",
-            "Nulla facilisi. Nunc finibus vel augue in luctus.",
-            "Ut semper dignissim dignissim. Integer eget eros tellus."
-          ],
-          trueOptionIndex: 2),
-      Question(
-          content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis?",
-          questionType: QuestionType.COKTAN_SECMELI,
-          options: [
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "Vivamus sit amet lobortis erat. Vestibulum at iaculis magna, id imperdiet sem.",
-            "Donec feugiat tincidunt diam ac fermentum. Ut semper eros ac rhoncus vestibulum.",
-            "Nulla facilisi. Nunc finibus vel augue in luctus.",
-            "Ut semper dignissim dignissim. Integer eget eros tellus."
-          ],
-          trueOptionIndex: 2),
-      Question(
-          content:
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur suscipit posuere nisl nec efficitur. Quisque aliquet arcu sed velit cursus venenatis ac non ligula. Pellentesque ac ullamcorper turpis, sed fringilla tellus. Sed et tellus odio. Vivamus quis suscipit urna. Proin sed rhoncus velit, vitae condimentum leo. Maecenas pulvinar turpis vitae tempus sagittis?",
-          questionType: QuestionType.COKTAN_SECMELI,
-          options: [
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-            "Vivamus sit amet lobortis erat. Vestibulum at iaculis magna, id imperdiet sem.",
-            "Donec feugiat tincidunt diam ac fermentum. Ut semper eros ac rhoncus vestibulum.",
-            "Nulla facilisi. Nunc finibus vel augue in luctus.",
-            "Ut semper dignissim dignissim. Integer eget eros tellus."
-          ],
-          trueOptionIndex: 2)
-    ])
+      // ... Diğer sorular buraya eklenebilir
+    ]),
   ];
 }
