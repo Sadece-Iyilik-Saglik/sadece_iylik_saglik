@@ -5,7 +5,6 @@ import 'package:sadece_iylik_saglik/core/constants/app/color_strings.dart';
 import 'package:sadece_iylik_saglik/core/constants/app/image_strings.dart';
 import 'package:sadece_iylik_saglik/view/article/article_screen.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
-import 'package:sadece_iylik_saglik/view/question/question_screen.dart';
 import 'package:photo_view/photo_view.dart';
 
 import '../onboarding/components/card_customized.dart';
@@ -20,11 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends BaseState<HomeScreen> {
-  List<String> cardImages = [
-    "assets/images/piknik.png",
-    "assets/images/1.png",
-    "assets/images/30.png"
-  ];
+  List<String> cardImages = ["assets/images/piknik.png", "assets/images/1.png", "assets/images/30.png"];
 
   @override
   Widget build(BuildContext context) {
@@ -41,12 +36,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         appBar: appBar,
         body: SingleChildScrollView(
           child: Column(
-            children: [
-              carouselArea(),
-              menuButtons,
-              bottomMenuButtons,
-              bottomCard
-            ],
+            children: [carouselArea(), menuButtons, bottomMenuButtons, bottomCard],
           ),
         ),
       );
@@ -89,8 +79,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
                 style: TextStyle(color: Colors.black),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
-                  height: 8), // Add some space between the quote and the author
+              SizedBox(height: 8), // Add some space between the quote and the author
               Text(
                 "Galen",
                 style: TextStyle(
@@ -228,9 +217,8 @@ class _HomeScreenState extends BaseState<HomeScreen> {
                   // tightMode: true,
                   // minScale: 0.8,
                   imageProvider: AssetImage(image),
-                  backgroundDecoration: const BoxDecoration(
-                      color: Colors.transparent,
-                      backgroundBlendMode: BlendMode.clear),
+                  backgroundDecoration:
+                      const BoxDecoration(color: Colors.transparent, backgroundBlendMode: BlendMode.clear),
                 ),
               ],
             ),
@@ -247,8 +235,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
             padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: GestureDetector(
               onTap: () {
-                // showDepartmentsPage();
-                showQuestionsPage();
+                showDepartmentsPage();
               },
               child: ImageOverlayCard(
                 imageLink: ImagesPath.homeScreenDepartments,
@@ -267,6 +254,7 @@ class _HomeScreenState extends BaseState<HomeScreen> {
             onTap: () {
               // Burada tıklama olayına ne yapılacağını ekleyebilirsiniz.
               // Örneğin, bir sayfaya gitmek için Navigator kullanabilirsiniz.
+              showPreQuestionsPage();
             },
             child: ImageOverlayCard(
               imageLink: ImagesPath.homeScreenQuestion,
@@ -323,11 +311,11 @@ class _HomeScreenState extends BaseState<HomeScreen> {
         ],
       );
 
-  void showQuestionsPage() {
+  void showPreQuestionsPage() {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const QuestionScreen(),
+        builder: (context) => const PreQuestionScreen(),
       ),
     );
   }

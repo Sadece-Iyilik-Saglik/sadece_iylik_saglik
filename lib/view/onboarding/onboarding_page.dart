@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import 'package:sadece_iylik_saglik/core/viewmodel/onboarding_view_model.dart';
+// ignore: unused_import
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
 import 'package:sadece_iylik_saglik/view/auth/signup_screen.dart';
+import 'package:sadece_iylik_saglik/view/home/home_screen.dart';
 
 import '../../core/base/view/base_view.dart';
 import '../../core/constants/app/color_strings.dart';
@@ -84,8 +86,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
         const WaveCard(),
         Padding(
           padding: const EdgeInsets.only(left: 50.0, right: 50.0),
-          child: Image.asset(
-              OnBoardingViewModel.onboardingList[_currentIndex].image),
+          child: Image.asset(OnBoardingViewModel.onboardingList[_currentIndex].image),
         ),
       ],
     );
@@ -120,8 +121,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 20),
       child: PrimaryButton(
         onTap: () {
-          if (_currentIndex ==
-              (OnBoardingViewModel.onboardingList.length - 1)) {
+          if (_currentIndex == (OnBoardingViewModel.onboardingList.length - 1)) {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -135,9 +135,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
             );
           }
         },
-        text: _currentIndex == (OnBoardingViewModel.onboardingList.length - 1)
-            ? 'Kayıt ol'
-            : 'Sonraki',
+        text: _currentIndex == (OnBoardingViewModel.onboardingList.length - 1) ? 'Kayıt ol' : 'Sonraki',
       ),
     );
   }
@@ -145,19 +143,22 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget get customTextButton {
     return CustomTextButton(
       onPressed: () {
-        _currentIndex == (OnBoardingViewModel.onboardingList.length - 1)
-            ? Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
-              )
-            : _pageController
-                .jumpToPage(OnBoardingViewModel.onboardingList.length - 1);
+        //Geçiçi olarak geliştirme yaparken test için direkt olarak ana sayfaya yönlendiriyor.
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const HomeScreen(),
+            ));
+        // _currentIndex == (OnBoardingViewModel.onboardingList.length - 1)
+        //     ? Navigator.push(
+        //         context,
+        //         MaterialPageRoute(
+        //           builder: (context) => const LoginScreen(),
+        //         ),
+        //       )
+        //     : _pageController.jumpToPage(OnBoardingViewModel.onboardingList.length - 1);
       },
-      text: _currentIndex == (OnBoardingViewModel.onboardingList.length - 1)
-          ? 'Giriş yap'
-          : 'Atla',
+      text: _currentIndex == (OnBoardingViewModel.onboardingList.length - 1) ? 'Giriş yap' : 'Atla',
     );
   }
 }

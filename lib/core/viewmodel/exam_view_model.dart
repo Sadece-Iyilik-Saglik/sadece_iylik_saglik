@@ -34,17 +34,6 @@ class ExamViewModel {
     ]),
     Exam(examName: "Fizyoloji Sınavı", komiteName: Komite.Komite_1, donemName: Donem.Donem_1, questions: [
       Question(
-          content: "İnsan vücudu hangi sistemle oksijen alır ve karbon dioksit atar?",
-          questionType: QuestionType.COKTAN_SECMELI,
-          options: [
-            "Solunum Sistemi",
-            "Dolaşım Sistemi",
-            "Sindirim Sistemi",
-            "Üreme Sistemi",
-            "Endokrin Sistemi",
-          ],
-          trueOptionIndex: 0),
-      Question(
           content: "Kanın ana bileşeni nedir?",
           questionType: QuestionType.COKTAN_SECMELI,
           options: [
@@ -55,6 +44,18 @@ class ExamViewModel {
             "Vitamin",
           ],
           trueOptionIndex: 2),
+
+      Question(
+          content: "İnsan vücudu hangi sistemle oksijen alır ve karbon dioksit atar?",
+          questionType: QuestionType.COKTAN_SECMELI,
+          options: [
+            "Solunum Sistemi",
+            "Dolaşım Sistemi",
+            "Sindirim Sistemi",
+            "Üreme Sistemi",
+            "Endokrin Sistemi",
+          ],
+          trueOptionIndex: 0),
       // ... Diğer sorular buraya eklenebilir
     ]),
   ];

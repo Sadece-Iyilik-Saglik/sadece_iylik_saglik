@@ -5,6 +5,7 @@ import 'package:sadece_iylik_saglik/core/components/dropdownbutton/custom_dropdo
 import 'package:sadece_iylik_saglik/core/constants/enum/komite_enum.dart';
 import 'package:sadece_iylik_saglik/core/constants/enum/donem_enum.dart';
 import 'package:sadece_iylik_saglik/core/viewmodel/exam_view_model.dart';
+import 'package:sadece_iylik_saglik/view/question/question_screen.dart';
 
 class PreQuestionScreen extends StatefulWidget {
   const PreQuestionScreen({super.key});
@@ -215,6 +216,11 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                             const Spacer(),
                             TextButton(
                                 onPressed: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => QuestionScreen(exam: ExamViewModel.allExams[index]),
+                                      ));
                                   //Burada Quesiton ekranınına seçili olan exam verisi gönderilecek.
                                 },
                                 child: const Text(
@@ -281,6 +287,11 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                             TextButton(
                                 onPressed: () {
                                   //Burada Quesiton ekranınına seçili olan exam verisi gönderilecek.
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => QuestionScreen(exam: ExamViewModel.allExams[index]),
+                                      ));
                                 },
                                 child: const Text(
                                   "Devam et >>",

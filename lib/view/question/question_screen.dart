@@ -1,22 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:sadece_iylik_saglik/core/base/state/base_state.dart';
-
-import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
-import 'package:sadece_iylik_saglik/core/components/dialog/custom_dialog.dart';
-import 'package:sadece_iylik_saglik/core/viewmodel/exam_view_model.dart';
-
+import '../../core/base/state/base_state.dart';
+import '../../core/base/view/base_view.dart';
+import '../../core/components/dialog/custom_dialog.dart';
 import '../../core/model/exam_model.dart';
 
 class QuestionScreen extends StatefulWidget {
-  const QuestionScreen({super.key});
+  final Exam exam;
+  const QuestionScreen({
+    Key? key,
+    required this.exam,
+  }) : super(key: key);
 
   @override
   State<QuestionScreen> createState() => _QuestionScreenState();
 }
 
 class _QuestionScreenState extends BaseState<QuestionScreen> {
-  List<Exam> get ex => ExamViewModel.allExams;
   int selectedOption = -1;
   bool isBottomBarVisible = true;
 
@@ -41,10 +41,8 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
               children: [
                 // ...examNumberArea,
                 contentArea,
-                ...List.generate(
-                    ex.first.questions.first.options.length,
-                    (index) => optionArea(
-                        ex.first.questions.first.options[index], index)),
+                ...List.generate(widget.exam.questions.first.options.length,
+                    (index) => optionArea(widget.exam.questions.first.options[index], index)),
               ],
             ),
           ),
@@ -53,13 +51,12 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
 
   PreferredSizeWidget get appBar => AppBar(
         centerTitle: true,
-        title: const Text(
-          "Sadece İyilik Sağlık",
-          style: TextStyle(color: Colors.white),
+        title: Text(
+          widget.exam.examName,
+          style: const TextStyle(color: Colors.white),
         ),
         backgroundColor: const Color(0xFFED8C42),
         // backgroundColor: themeData.primaryColor,
-        actions: [toggleBottomBarVisibilityButton],
       );
   Widget get drawer => Drawer(
         elevation: 20,
@@ -80,15 +77,16 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
           ],
         ),
       );
+
   Widget get drawerHeader => Container(
         padding: const EdgeInsets.only(top: 70, left: 20, right: 20),
         alignment: Alignment.center,
         child: const Text(
           "Komite 1\nDers 1", // Replace with your quiz title
-          style: TextStyle(
-              color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.white, fontSize: 30, fontWeight: FontWeight.bold),
         ),
       );
+
   Widget get questionButtons => Expanded(
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -103,24 +101,21 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
                   backgroundColor: MaterialStateProperty.all(Colors.white),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius:
-                          BorderRadius.circular(10), // Rectangle shape
+                      borderRadius: BorderRadius.circular(10), // Rectangle shape
                     ),
                   ),
                 ),
                 onPressed: () {},
                 child: Text(
                   "${index + 1}",
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
+                  style: const TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.bold),
                 ),
               ),
             );
           },
         ),
       );
+
   Widget get decisionButtons => Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
@@ -141,8 +136,7 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
                       backgroundColor: MaterialStateProperty.all(Colors.blue),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(10), // Rectangle shape
+                          borderRadius: BorderRadius.circular(10), // Rectangle shape
                         ),
                       ),
                     ),
@@ -160,8 +154,7 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
                       backgroundColor: MaterialStateProperty.all(Colors.red),
                       shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-                          borderRadius:
-                              BorderRadius.circular(10), // Rectangle shape
+                          borderRadius: BorderRadius.circular(10), // Rectangle shape
                         ),
                       ),
                     ),
@@ -176,99 +169,120 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
           ),
         ],
       );
-  Widget get toggleBottomBarVisibilityButton => TextButton(
-        onPressed: () {
-          setState(() {
-            isBottomBarVisible = !isBottomBarVisible;
-          });
-        },
-        child: Text(isBottomBarVisible ? 'Gizle' : 'Göster'),
-      );
-  Widget get bottomBar => AnimatedContainer(
-        duration: const Duration(milliseconds: 500),
-        height: isBottomBarVisible ? dynamicHeight(0.18) : 0,
-        child: BottomAppBar(
-          elevation: 100,
-          color: Colors.white,
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Card(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Checkbox(
-                        value: selectedOption == -1,
-                        onChanged: (value) => setState(
-                          () {
-                            value == true
-                                ? selectedOption = -1
-                                : selectedOption = -2;
-                          },
-                        ),
+
+  Widget get bottomBar => Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          InkWell(
+            onTap: () {
+              setState(() {
+                isBottomBarVisible = !isBottomBarVisible;
+              });
+            },
+            child: Ink(
+                width: 40,
+                height: 35,
+                decoration: const BoxDecoration(
+                    boxShadow: [
+                      BoxShadow(
+                        blurRadius: 5,
+                        color: Color.fromRGBO(189, 189, 189, 1),
                       ),
-                      const Text("Boş Bırak"),
                     ],
-                  ),
-                ),
-                // const SizedBox(height: 5),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(topLeft: Radius.circular(10), topRight: Radius.circular(10))),
+                child: Icon(isBottomBarVisible ? Icons.keyboard_arrow_down_rounded : Icons.keyboard_arrow_up_rounded)),
+          ),
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 500),
+            decoration: const BoxDecoration(boxShadow: [
+              BoxShadow(
+                blurRadius: 5,
+                color: Color.fromRGBO(189, 189, 189, 1),
+              )
+            ]),
+            height: isBottomBarVisible ? dynamicHeight(0.18) : 0,
+            child: BottomAppBar(
+              elevation: 0,
+              // shadowColor: Colors.grey.shade400,
+              color: Colors.white,
+              child: SingleChildScrollView(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Card(
-                      child: CupertinoButton(
-                        color: const Color(0xFFED8C42),
-                        onPressed: () {
-                          if (selectedOption + 1 >
-                                  ex.first.questions.first.options.length ||
-                              selectedOption + 1 < 0) {
-                            CustomDialog.buildCustomDialog(
-                                    context: context,
-                                    title: "Hiçbir cevap seçmediniz !",
-                                    content:
-                                        "Soruya herhangi bir cevap vermeden geçemezsiniz.\n\"Boş Bırak\" olarak işaretlemek istiyor musunuz?",
-                                    width: dynamicWidth(0.9))
-                                .then((value) {
-                              if (value == -1) {
-                                setState(() {
-                                  selectedOption = -1;
-                                });
-                              }
-                            });
-                          }
-                        },
-                        child: const Text("Kaydet"),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Checkbox(
+                            value: selectedOption == -1,
+                            onChanged: (value) => setState(
+                              () {
+                                value == true ? selectedOption = -1 : selectedOption = -2;
+                              },
+                            ),
+                          ),
+                          const Text("Boş Bırak"),
+                        ],
                       ),
                     ),
-                    Card(
-                      child: CupertinoButton(
-                        color: const Color(0xFFED8C42),
-                        onPressed: () {
-                          CustomDialog.buildCustomDialog(
-                                  context: context,
-                                  title: "Sınavı Bitir",
-                                  content:
-                                      "Sınavınızı bitirdiğinizden emin olun!\nEğer evet derseniz sınavınız sonlandırılacak",
-                                  width: dynamicWidth(0.9))
-                              .then((value) {
-                            if (value == -1) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
+                    // const SizedBox(height: 5),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Card(
+                          child: CupertinoButton(
+                            color: const Color(0xFFED8C42),
+                            onPressed: () {
+                              if (selectedOption + 1 > widget.exam.questions.first.options.length ||
+                                  selectedOption + 1 < 0) {
+                                CustomDialog.buildCustomDialog(
+                                        context: context,
+                                        title: "Hiçbir cevap seçmediniz !",
+                                        content:
+                                            "Soruya herhangi bir cevap vermeden geçemezsiniz.\n\"Boş Bırak\" olarak işaretlemek istiyor musunuz?",
+                                        width: dynamicWidth(0.9))
+                                    .then((value) {
+                                  if (value == -1) {
+                                    setState(() {
+                                      selectedOption = -1;
+                                    });
+                                  }
+                                });
+                              }
+                            },
+                            child: const Text("Kaydet"),
+                          ),
+                        ),
+                        Card(
+                          child: CupertinoButton(
+                            color: const Color(0xFFED8C42),
+                            onPressed: () {
+                              CustomDialog.buildCustomDialog(
+                                      context: context,
+                                      title: "Sınavı Bitir",
                                       content:
-                                          Text("Sınavınız tamamlandı...")));
-                            }
-                          });
-                        },
-                        child: const Text("Bitir"),
-                      ),
+                                          "Sınavınızı bitirdiğinizden emin olun!\nEğer evet derseniz sınavınız sonlandırılacak",
+                                      width: dynamicWidth(0.9))
+                                  .then((value) {
+                                if (value == -1) {
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(content: Text("Sınavınız tamamlandı...")));
+                                }
+                              });
+                            },
+                            child: const Text("Bitir"),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
-        ),
+        ],
       );
 
   // List<Widget> get examNumberArea => [
@@ -302,8 +316,7 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
                 radius: 24,
                 child: Text(
                   "1",
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                 ),
               ),
               const SizedBox(width: 16),
@@ -320,7 +333,7 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
                     // ),
                     // const SizedBox(height: 8),
                     Text(
-                      ex.first.questions.first.content,
+                      widget.exam.questions.first.content,
                       style: const TextStyle(
                         fontSize: 17,
                       ),
@@ -339,9 +352,7 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
-          color: selectedOption == i
-              ? const Color(0xFF273C66)
-              : Colors.transparent,
+          color: selectedOption == i ? const Color(0xFF273C66) : Colors.transparent,
         ),
         child: ListTile(
           onTap: () {
@@ -354,13 +365,11 @@ class _QuestionScreenState extends BaseState<QuestionScreen> {
             style: TextStyle(
               fontSize: 16,
               color: selectedOption == i ? Colors.white : Colors.black,
-              fontWeight:
-                  selectedOption == i ? FontWeight.bold : FontWeight.normal,
+              fontWeight: selectedOption == i ? FontWeight.bold : FontWeight.normal,
             ),
           ),
           leading: CircleAvatar(
-            backgroundColor:
-                selectedOption == i ? const Color(0xFFED8C42) : Colors.grey,
+            backgroundColor: selectedOption == i ? const Color(0xFFED8C42) : Colors.grey,
             child: Text(
               String.fromCharCode(65 + i), // ASCII 'A' is 65
               style: const TextStyle(
