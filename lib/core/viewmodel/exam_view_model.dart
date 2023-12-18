@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sadece_iylik_saglik/core/constants/enum/komite_enum.dart';
 import 'package:sadece_iylik_saglik/core/constants/enum/donem_enum.dart';
 
@@ -5,8 +7,8 @@ import '../constants/enum/question_enum.dart';
 import '../model/exam_model.dart';
 import '../model/question_model.dart';
 
-class ExamViewModel {
-  static List<Exam> allExams = [
+class ExamViewModel extends ChangeNotifier {
+  List<Exam> get allExams => [
     Exam(examName: "Anatomi Testi", komiteName: Komite.Komite_1, donemName: Donem.Donem_1, questions: [
       Question(
           content: "İnsan vücudundaki en büyük organ hangisidir?",
@@ -60,3 +62,5 @@ class ExamViewModel {
     ]),
   ];
 }
+
+final examViewModelProvider = ChangeNotifierProvider((ref) => ExamViewModel());

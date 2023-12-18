@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sadece_iylik_saglik/core/base/state/base_state.dart';
 import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/core/components/dropdownbutton/custom_dropdownbutton.dart';
@@ -15,16 +16,21 @@ class PreQuestionScreen extends StatefulWidget {
 }
 
 class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
-  Komite? selectedComitte;
-  Donem? selectedPeriod;
+  late Komite? selectedComitte;
+  late Donem? selectedPeriod;
+  late ExamViewModel examViewModel;
+  late WidgetRef ref;
   @override
   Widget build(BuildContext context) {
     return BaseView(
-      viewModel: "",
+      viewModel: examViewModelProvider,
       onPageBuilder: (context, value) {
+        examViewModel = ref.watch(examViewModelProvider);
         return scaffoldBody;
       },
-      onModelReady: (model) {},
+      onModelReady: (model) {
+        ref = model;
+      },
     );
   }
 
@@ -186,7 +192,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
             child: PageView.builder(
               scrollDirection: Axis.horizontal,
               controller: PageController(viewportFraction: 1 / 3),
-              itemCount: ExamViewModel.allExams.length,
+              itemCount: examViewModel.allExams.length,
               padEnds: false,
               itemBuilder: (context, index) {
                 return Padding(
@@ -201,7 +207,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                         child: Column(
                           children: [
                             Text(
-                              ExamViewModel.allExams[index].donemName.name.replaceAll("Donem_", "Dönem "),
+                              examViewModel.allExams[index].donemName.name.replaceAll("Donem_", "Dönem "),
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color.fromRGBO(227, 242, 253, 1),
@@ -209,7 +215,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                               ),
                             ),
                             Text(
-                              ExamViewModel.allExams[index].komiteName.name.replaceAll("_", " "),
+                              examViewModel.allExams[index].komiteName.name.replaceAll("_", " "),
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14, color: Color.fromRGBO(227, 242, 253, 1)),
                             ),
@@ -219,7 +225,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => QuestionScreen(exam: ExamViewModel.allExams[index]),
+                                        builder: (context) => QuestionScreen(exam: examViewModel.allExams[index]),
                                       ));
                                   //Burada Quesiton ekranınına seçili olan exam verisi gönderilecek.
                                 },
@@ -236,7 +242,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                           height: 18,
                           child: Center(
                             child: Text(
-                              ExamViewModel.allExams[index].examName,
+                              examViewModel.allExams[index].examName,
                               style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.black),
                             ),
                           ),
@@ -256,7 +262,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
             child: PageView.builder(
               scrollDirection: Axis.horizontal,
               controller: PageController(viewportFraction: 1 / 3),
-              itemCount: ExamViewModel.allExams.length,
+              itemCount: examViewModel.allExams.length,
               padEnds: false,
               itemBuilder: (context, index) {
                 return Padding(
@@ -271,7 +277,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                         child: Column(
                           children: [
                             Text(
-                              ExamViewModel.allExams[index].donemName.name.replaceAll("Donem_", "Dönem "),
+                              examViewModel.allExams[index].donemName.name.replaceAll("Donem_", "Dönem "),
                               style: const TextStyle(
                                 fontWeight: FontWeight.w600,
                                 color: Color.fromRGBO(227, 242, 253, 1),
@@ -279,7 +285,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                               ),
                             ),
                             Text(
-                              ExamViewModel.allExams[index].komiteName.name.replaceAll("_", " "),
+                              examViewModel.allExams[index].komiteName.name.replaceAll("_", " "),
                               style: const TextStyle(
                                   fontWeight: FontWeight.w500, fontSize: 14, color: Color.fromRGBO(227, 242, 253, 1)),
                             ),
@@ -290,7 +296,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                                   Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => QuestionScreen(exam: ExamViewModel.allExams[index]),
+                                        builder: (context) => QuestionScreen(exam: examViewModel.allExams[index]),
                                       ));
                                 },
                                 child: const Text(
@@ -306,7 +312,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                           height: 18,
                           child: Center(
                             child: Text(
-                              ExamViewModel.allExams[index].examName,
+                              examViewModel.allExams[index].examName,
                               style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.black),
                             ),
                           ),

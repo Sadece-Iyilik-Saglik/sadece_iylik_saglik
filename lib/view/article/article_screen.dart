@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:sadece_iylik_saglik/core/base/state/base_state.dart';
 import 'package:sadece_iylik_saglik/core/viewmodel/article_view_model.dart';
 
 import '../../core/base/view/base_view.dart';
@@ -12,28 +14,23 @@ class ArticleScreen extends StatefulWidget {
   State<ArticleScreen> createState() => _ArticleScreenState();
 }
 
-class _ArticleScreenState extends State<ArticleScreen> {
-  List<Article> articles = [];
-  TextEditingController searchController = TextEditingController();
+class _ArticleScreenState extends BaseState<ArticleScreen> {
+  late final searchController = TextEditingController();
   bool isSearching = false;
   late ArticleViewModel articleViewModel;
+  late WidgetRef ref;
   // int itemsPerPage = 8;
   // late final Function(int) onChange;
   // late final List<String> textArray;
   @override
   Widget build(BuildContext context) {
-    return BaseView<ArticleViewModel>(
-      viewModel: ArticleViewModel(),
+    return BaseView(
+      viewModel: articleViewModelProvider,
       onModelReady: (model) {
-        articleViewModel = model;
-        Future.delayed(
-          Duration.zero,
-          () => setState(() {
-            articles = articleViewModel.getArticles(articles);
-          }),
-        );
+        ref = model;
       },
       onPageBuilder: (context, value) {
+        articleViewModel = ref.watch(articleViewModelProvider);
         return scaffoldBody;
       },
     );
@@ -53,7 +50,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
     if (query.isEmpty) {
       setState(() {
         isSearching = false;
-        articles = articleViewModel.getArticles(articles);
+        ref.read(articleViewModelProvider).getArticles();
       });
     } else {
       List<Article> searchResults = ArticleViewModel.allArticles
@@ -63,7 +60,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
           .toList();
       setState(() {
         isSearching = true;
-        articles = searchResults;
+        ref.read(articleViewModelProvider).changeCurrentArticles(searchResults);
       });
     }
   }
@@ -104,7 +101,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
                                 searchController.clear();
                                 isSearching = false;
                                 setState(() {
-                                  articles = articleViewModel.getArticles(articles);
+                                  ref.read(articleViewModelProvider).getArticles();
                                 });
                               },
                               child: const Icon(Icons.close))
@@ -166,7 +163,7 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   Widget get buildArticles => Expanded(
         child: ListView.builder(
-          itemCount: articles.length,
+          itemCount: articleViewModel.currentArticles.length,
           itemBuilder: (BuildContext context, int i) {
             return Column(
               children: [
@@ -177,17 +174,17 @@ class _ArticleScreenState extends State<ArticleScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) {
-                          return ArticleDetailScreen(article: articles[i]);
+                          return ArticleDetailScreen(article: articleViewModel.currentArticles[i]);
                         },
                       ),
                     );
                   },
                   child: ListTile(
                     title: Text(
-                      articles[i].title,
+                      articleViewModel.currentArticles[i].title,
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                     ),
-                    subtitle: Text(articles[i].author),
+                    subtitle: Text(articleViewModel.currentArticles[i].author),
                   ),
                 )
               ],
@@ -198,19 +195,19 @@ class _ArticleScreenState extends State<ArticleScreen> {
 
   void get getAllArticles {
     setState(() {
-      articles = articleViewModel.getArticles(articles);
+      ref.read(articleViewModelProvider).getArticles();
     });
   }
 
   void get getHistoryArticles {
     setState(() {
-      articles = articleViewModel.getArticles(articles);
+      ref.read(articleViewModelProvider).getArticles();
     });
   }
 
   void get getSavedArticles {
     setState(() {
-      articles = articleViewModel.getArticles(articles);
+      ref.read(articleViewModelProvider).getArticles();
     });
   }
 

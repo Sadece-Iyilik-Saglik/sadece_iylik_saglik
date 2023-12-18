@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sadece_iylik_saglik/core/model/article_model.dart';
 
-class ArticleViewModel {
+class ArticleViewModel extends ChangeNotifier {
   static List<Article> get allArticles => [
         Article(
           author: "Dr. John Smith",
@@ -164,22 +166,41 @@ class ArticleViewModel {
           source: "Health Informatics Trends",
         ),
       ];
+  late List<Article> currentArticles = allArticles.sublist(0, 8);
 
-  List<Article> getArticles(List<Article> currentArticles) {
+  void changeCurrentArticles(List<Article> val) {
+    currentArticles = val;
+    notifyListeners();
+  }
+
+  List<Article> getArticles() {
     int limit = 8;
     List<Article> uniqueList = [];
-    for (var article in allArticles) {
-      if (!currentArticles.contains(article)) {
-        uniqueList.add(article);
+    for (var ul in allArticles) {
+      uniqueList.add(ul);
+    }
+    for (var i = 0; i < uniqueList.length; i++) {
+      for (var j = 0; j < currentArticles.length; j++) {
+        if (uniqueList[i].title == currentArticles[j].title) {
+          uniqueList.removeAt(i);
+        }
       }
     }
-    // for (var e in uniqueList.sublist(0, limit)) {
-    //   print(e.title);
-    // }
-    currentArticles.addAll(uniqueList.sublist(0, limit));
-    // for (var e in currentArticle) {
-    //   print(e.title);
-    // }
-    return currentArticles;
+    switch (uniqueList.length) {
+      case 0:
+        return currentArticles;
+      case < 8:
+        uniqueList = uniqueList.sublist(0, uniqueList.length);
+        currentArticles.addAll(uniqueList);
+        notifyListeners();
+        return currentArticles;
+      default:
+        uniqueList = uniqueList.sublist(0, limit);
+        currentArticles.addAll(uniqueList);
+        notifyListeners();
+        return currentArticles;
+    }
   }
 }
+
+final articleViewModelProvider = ChangeNotifierProvider((ref) => ArticleViewModel());
