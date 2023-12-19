@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
 import 'package:sadece_iylik_saglik/core/base/state/base_state.dart';
 import 'package:sadece_iylik_saglik/core/base/view/base_view.dart';
 import 'package:sadece_iylik_saglik/core/constants/app/image_strings.dart';
-import 'package:sadece_iylik_saglik/core/model/user_model.dart';
-import 'package:sadece_iylik_saglik/core/network/auth/auth.dart';
 import 'package:sadece_iylik_saglik/view/auth/login_screen.dart';
 import 'package:sadece_iylik_saglik/view/auth/widgets/text_field_common.dart';
 
 import '../../core/constants/app/color_strings.dart';
+import '../../core/network/firebase/auth.dart';
 import '../onboarding/components/card_customized.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -122,8 +122,7 @@ class _SignupScreenState extends BaseState<SignupScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: TextField(
         controller: controller,
-        decoration:
-            InputDecoration(border: const OutlineInputBorder(), hintText: hint),
+        decoration: InputDecoration(border: const OutlineInputBorder(), hintText: hint),
       ),
     );
   }
@@ -145,12 +144,7 @@ class _SignupScreenState extends BaseState<SignupScreen> {
             emailController.text.isNotEmpty &&
             passwordController.text.isNotEmpty) {
           // Kullanıcı Kaydetme Fonksiyonu
-          Auth().createUserWithEmailAndPassword(
-              user: User(
-                  name: nameController.text,
-                  surname: surnameController.text,
-                  email: emailController.text,
-                  password: passwordController.text));
+          Auth().createUserWithEmailAndPassword(email: emailController.text, password: passwordController.text);
           // Başarıyla tamamlandığında çıkan Snackbar
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
             content: Text("Kaydolma işlemi başarıyla tamamlandı"),
