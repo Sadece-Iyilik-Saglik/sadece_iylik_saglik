@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sadece_iylik_saglik/core/base/state/base_state.dart';
@@ -201,53 +202,58 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                     children: [
                       Container(
                         width: 104,
-                        height: 143,
+                        height: 75,
                         decoration: BoxDecoration(
                             color: const Color.fromRGBO(13, 71, 161, 1), borderRadius: BorderRadius.circular(10)),
-                        child: Column(
+                        child: Stack(
                           children: [
-                            Text(
-                              examViewModel.allExams[index].donemName.name.replaceAll("Donem_", "Dönem "),
-                              style: const TextStyle(
-                                fontWeight: FontWeight.w600,
-                                color: Color.fromRGBO(227, 242, 253, 1),
-                                fontSize: 16,
+                            Padding(
+                              padding: const EdgeInsets.only(top: 10),
+                              child: Expanded(
+                                child: Align(
+                                  alignment: Alignment.topCenter,
+                                  child: AutoSizeText(
+                                    examViewModel.allExams[index].examName,
+                                    maxFontSize: 20,
+                                    maxLines: 2,
+                                    textAlign: TextAlign.center,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.w500, color: Color.fromRGBO(227, 242, 253, 1)),
+                                  ),
+                                ),
                               ),
                             ),
-                            Text(
-                              examViewModel.allExams[index].komiteName.name.replaceAll("_", " "),
-                              style: const TextStyle(
-                                  fontWeight: FontWeight.w500, fontSize: 14, color: Color.fromRGBO(227, 242, 253, 1)),
-                            ),
-                            const Spacer(),
-                            TextButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => QuestionScreen(exam: examViewModel.allExams[index]),
-                                      ));
-                                  //Burada Quesiton ekranınına seçili olan exam verisi gönderilecek.
-                                },
-                                child: const Text(
-                                  "Teste Başla",
-                                  style: TextStyle(fontSize: 12, color: Color.fromRGBO(227, 242, 253, 1)),
-                                ))
+                            Positioned(
+                              bottom: 5,
+                              right: 5,
+                              child: Container(
+                                padding: const EdgeInsets.all(2),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Colors.white54,
+                                ),
+                                child: InkWell(
+                                    onTap: () => showExamInfo,
+                                    child: Icon(Icons.info_outline, color: Colors.blue.shade900)),
+                              ),
+                            )
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10),
-                        child: SizedBox(
-                          height: 18,
-                          child: Center(
-                            child: Text(
-                              examViewModel.allExams[index].examName,
-                              style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 12, color: Colors.black),
-                            ),
-                          ),
-                        ),
-                      )
+                      ElevatedButton.icon(
+                          style: const ButtonStyle(
+                              padding: MaterialStatePropertyAll(EdgeInsets.only(left: 6, right: 18)),
+                              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(13, 71, 161, 1)),
+                              foregroundColor: MaterialStatePropertyAll(Color.fromRGBO(227, 242, 253, 1))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => QuestionScreen(exam: examViewModel.allExams[index])));
+                            //Burada Quesiton ekranınına seçili olan exam verisi gönderilecek.
+                          },
+                          icon: const Icon(Icons.double_arrow_rounded, color: Color.fromRGBO(227, 242, 253, 1)),
+                          label: const Text("Teste Başla", style: TextStyle(fontSize: 10)))
                     ],
                   ),
                 );
@@ -354,4 +360,29 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
           ),
         ),
       );
+
+  void showExamInfo(int index) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return SimpleDialog(
+          children: [
+            Text(
+              examViewModel.allExams[index].donemName.name.replaceAll("Donem_", "Dönem "),
+              style: const TextStyle(
+                fontWeight: FontWeight.w600,
+                color: Color.fromRGBO(227, 242, 253, 1),
+                fontSize: 16,
+              ),
+            ),
+            Text(
+              examViewModel.allExams[index].komiteName.name.replaceAll("_", " "),
+              style:
+                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Color.fromRGBO(227, 242, 253, 1)),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
