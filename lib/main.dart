@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sadece_iylik_saglik/view/onboarding/onboarding_page.dart';
+import 'package:sadece_iylik_saglik/view/home/home_screen.dart';
 
 void main() {
   runApp(const ProviderScope(child: MyApp()));
@@ -17,7 +17,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const OnBoardingScreen(),
+      // home: const OnBoardingScreen(),
+      home: const HomeScreen(),
       debugShowCheckedModeBanner: false,
     );
   }

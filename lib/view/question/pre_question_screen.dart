@@ -16,8 +16,8 @@ class PreQuestionScreen extends StatefulWidget {
 }
 
 class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
-  late Komite? selectedComitte;
-  late Donem? selectedPeriod;
+  Komite? selectedComitte;
+  Donem? selectedPeriod;
   late ExamViewModel examViewModel;
   late WidgetRef ref;
   @override
