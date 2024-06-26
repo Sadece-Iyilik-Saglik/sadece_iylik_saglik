@@ -40,7 +40,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              selectionArea,
+              // selectionArea,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -66,30 +66,21 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                   )
                 ],
               ),
-              Divider(
-                color: Colors.grey.shade100,
-                indent: 20,
-                endIndent: 20,
-                height: 1,
-              ),
+              customDivider,
               examListArea,
-              const Padding(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 10),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "En son",
-                    style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
-                  ),
-                ),
-              ),
-              Divider(
-                color: Colors.grey.shade100,
-                indent: 20,
-                endIndent: 20,
-                height: 1,
-              ),
-              recentListArea,
+              // Sonraki güncellemelerde bu kısım eklenecek
+              // const Padding(
+              //   padding: EdgeInsets.only(left: 20, right: 20, top: 10),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: Text(
+              //       "En son",
+              //       style: TextStyle(fontWeight: FontWeight.w600, fontSize: 22),
+              //     ),
+              //   ),
+              // ),
+              // customDivider,
+              // recentListArea,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -99,7 +90,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        "Sınav sonuçlarım",
+                        "Sonuçlarım",
                         style: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
                       ),
                     ),
@@ -115,12 +106,7 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                   )
                 ],
               ),
-              Divider(
-                color: Colors.grey.shade100,
-                indent: 20,
-                endIndent: 20,
-                height: 1,
-              ),
+              customDivider,
               recentResultArea
             ],
           ),
@@ -209,32 +195,31 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 10),
-                              child: Expanded(
-                                child: Align(
-                                  alignment: Alignment.topCenter,
-                                  child: AutoSizeText(
-                                    examViewModel.allExams[index].examName,
-                                    maxFontSize: 20,
-                                    maxLines: 2,
-                                    textAlign: TextAlign.center,
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w500, color: Color.fromRGBO(227, 242, 253, 1)),
-                                  ),
+                              child: Align(
+                                alignment: Alignment.topCenter,
+                                child: AutoSizeText(
+                                  examViewModel.allExams[index].examName,
+                                  maxFontSize: 20,
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                  style: const TextStyle(
+                                      fontWeight: FontWeight.w500, color: Color.fromRGBO(227, 242, 253, 1)),
                                 ),
                               ),
                             ),
                             Positioned(
                               bottom: 5,
                               right: 5,
-                              child: Container(
-                                padding: const EdgeInsets.all(2),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Colors.white54,
+                              child: InkWell(
+                                onTap: () => showExamInfo(index),
+                                child: Container(
+                                  padding: const EdgeInsets.all(2),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: Colors.white54,
+                                  ),
+                                  child: Icon(Icons.info_outline, color: Colors.blue.shade900),
                                 ),
-                                child: InkWell(
-                                    onTap: () => showExamInfo,
-                                    child: Icon(Icons.info_outline, color: Colors.blue.shade900)),
                               ),
                             )
                           ],
@@ -242,16 +227,10 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
                       ),
                       ElevatedButton.icon(
                           style: const ButtonStyle(
-                              padding: MaterialStatePropertyAll(EdgeInsets.only(left: 6, right: 18)),
-                              backgroundColor: MaterialStatePropertyAll(Color.fromRGBO(13, 71, 161, 1)),
-                              foregroundColor: MaterialStatePropertyAll(Color.fromRGBO(227, 242, 253, 1))),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => QuestionScreen(exam: examViewModel.allExams[index])));
-                            //Burada Quesiton ekranınına seçili olan exam verisi gönderilecek.
-                          },
+                              padding: WidgetStatePropertyAll(EdgeInsets.only(left: 6, right: 18)),
+                              backgroundColor: WidgetStatePropertyAll(Color.fromRGBO(13, 71, 161, 1)),
+                              foregroundColor: WidgetStatePropertyAll(Color.fromRGBO(227, 242, 253, 1))),
+                          onPressed: () => startTest(index),
                           icon: const Icon(Icons.double_arrow_rounded, color: Color.fromRGBO(227, 242, 253, 1)),
                           label: const Text("Teste Başla", style: TextStyle(fontSize: 10)))
                     ],
@@ -342,17 +321,15 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
               return Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: ListTile(
-                  shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(25),
-                          topRight: Radius.circular(25),
-                          bottomLeft: Radius.circular(8),
-                          bottomRight: Radius.circular(8))),
-                  leading: const Icon(Icons.abc),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+                  leading: const Icon(Icons.timelapse_sharp),
                   title: const Text("Anatomi Testi"),
                   subtitle: const Text("Dönem 1 > Komite 1"),
+                  // trailing: const Icon(Icons.info_outline),
                   trailing: const Icon(Icons.keyboard_double_arrow_right_rounded),
-                  tileColor: const Color.fromRGBO(187, 222, 251, 1),
+                  tileColor: const Color.fromARGB(200, 13, 72, 161),
+                  textColor: const Color.fromRGBO(227, 242, 253, 1),
+                  iconColor: const Color.fromRGBO(227, 242, 253, 1),
                   onTap: () {},
                 ),
               );
@@ -365,24 +342,95 @@ class _PreQuestionScreenState extends BaseState<PreQuestionScreen> {
     showDialog(
       context: context,
       builder: (context) {
-        return SimpleDialog(
-          children: [
-            Text(
-              examViewModel.allExams[index].donemName.name.replaceAll("Donem_", "Dönem "),
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                color: Color.fromRGBO(227, 242, 253, 1),
-                fontSize: 16,
+        return AlertDialog(
+          title: const Text("Detaylar"),
+          content: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: [
+                  const Text("Test Adı: "),
+                  Text(
+                    examViewModel.allExams[index].examName,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
               ),
-            ),
-            Text(
-              examViewModel.allExams[index].komiteName.name.replaceAll("_", " "),
-              style:
-                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: Color.fromRGBO(227, 242, 253, 1)),
-            ),
+              Row(
+                children: [
+                  const Text("Dönem: "),
+                  Text(
+                    examViewModel.allExams[index].donemName.name.replaceAll("Donem_", "Dönem "),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("Komite: "),
+                  Text(
+                    examViewModel.allExams[index].komiteName.name.replaceAll("_", " "),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("Soru Sayısı: "),
+                  Text(
+                    examViewModel.allExams[index].questions.length.toString(),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text("Tahmini Süre: "),
+                  Text(
+                    "${examViewModel.allExams[index].questions.length * 3} dk",
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          actions: [
+            OutlinedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("İptal")),
+            FilledButton.icon(
+              onPressed: () => startTest(index),
+              label: const Text("Teste Başla"),
+              icon: const Icon(Icons.double_arrow_rounded),
+            )
           ],
         );
       },
     );
   }
+
+  void startTest(int index) {
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => QuestionScreen(exam: examViewModel.allExams[index])));
+  }
+
+  Widget get customDivider => Divider(color: Colors.grey.shade100, indent: 20, endIndent: 20, height: 1);
 }
